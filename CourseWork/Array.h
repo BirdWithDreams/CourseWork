@@ -17,6 +17,8 @@ public:
 	Array(int n);
 	Array(int n, int m);
 
+	T* operator[](int i);
+
 	void rand_uniform(T min, T max);
 };
 

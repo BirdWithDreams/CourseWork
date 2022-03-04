@@ -79,6 +79,12 @@ Array<T>::Array(int n, int m)
 };
 
 template<class T>
+T* Array<T>::operator[](int i)
+{
+	return array[i];
+}
+
+template<class T>
 void Array<T>::rand_uniform(T min, T max)
 {
 	for (int i = 0; i < shape[0]; i++)
