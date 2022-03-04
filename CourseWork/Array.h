@@ -5,9 +5,9 @@ template <class T>
 class Array
 {
 private:
-	T* array;
-	std::vector<int> shape;
-	int dims;
+	T** array;
+	int shape[2];
+	//int dims;
 
 public:
 	Array();

@@ -4,58 +4,63 @@ template<class T>
 Array<T>::Array()
 {
 	this->array = nullptr;
-	shape.push_back(0);
-	dims = 0;
+	shape[0] = shape[1] = 0;
+	//dims = 0;
 };
 
 template<class T>
 Array<T>::Array(T* begin, T* end)
 {
 	int n = end - begin;
-	this->array = new T[n];
+	this->array = new T*[1];
+	this->array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
-		this->array[i] = begin[i];
+		this->array[0][i] = begin[i];
 
-	shape.push_back(n);
-	dims = 1;
+	shape[0] = 1;
+	shape[1] = n;
 };
 
 template<class T>
 Array<T>::Array(T* arr, int n)
 {
-	this->array = new T[n];
+	this->array = new T*[1];
+	this->array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
-		this->array[i] = arr[i];
+		this->array[0][i] = arr[i];
 
-	shape.push_back(n);
-	dims = 1;
+	shape[0] = 1;
+	shape[1] = n;
 };
 
 template<class T>
 Array<T>::Array(T** arr, int n, int m)
 {
-	this->array = new T[n][m];
+	this->array = new T*[n];
+	for (int i = 0; i < n; i++)
+		this->array[i] = new T[m];
+
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = arr[i][j];
 
-	shape.push_back(n);
-	shape.push_back(m);
-	dims = 2;
+	shape[0] = n;
+	shape[1] = m;
 };
 
 template<class T>
 Array<T>::Array(int n)
 {
-	array = new T[n];
+	array = new T*[1];
+	array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
-		array[i] = 0;
+		array[0][i] = 0;
 
-	shape.push_back(n);
-	dims = 1;
+	shape[0] = 1;
+	shape[1] = n;
 };
 
 template<class T>
@@ -69,33 +74,16 @@ Array<T>::Array(int n, int m)
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = 0;
 
-	shape.push_back(n);
-	shape.push_back(m);
-	dims = 2;
+	shape[0] = n;
+	shape[1] = m;
 };
 
 template<class T>
 void Array<T>::rand_uniform(T min, T max)
 {
-
-	switch (dims)
-	{
-	case 0:
-		break;
-
-	case 1:
-		for (int i = 0; i < shape[0]; i++)
-			array[i] = rand() / static_cast<double>(RAND_MAX) * (max - min) + min;
-		break;
-
-	case 2:
-		for (int i = 0; i < shape[0]; i++)
-			for (int j = 0; j < shape[1]; j++)
-				array[i][j] = rand() / static_cast<double>(RAND_MAX) * (max - min) + min;
-		break;
-	default:
-		break;
-	}
+	for (int i = 0; i < shape[0]; i++)
+		for (int j = 0; j < shape[1]; j++)
+			array[i][j] = rand() / static_cast<double>(RAND_MAX) * (max - min) + min;
 };
 
 //template<class T>
