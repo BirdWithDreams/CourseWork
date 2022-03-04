@@ -5,7 +5,7 @@
 
 int main()
 {
-	auto arr = rand_uniform<double>(-1, 1, 5);
-	std::cout << arr[0][1];
+	auto arr = rand_uniform<double>(-1, 1, 5, 5);
+	std::cout << arr;
 	return 0;
 }

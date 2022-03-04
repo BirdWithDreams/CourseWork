@@ -93,6 +93,18 @@ void Array<T>::rand_uniform(T min, T max)
 };
 
 template<class T>
+std::ostream& operator<<(std::ostream& os, Array<T>& array)
+{
+	for (int i = 0; i < array.shape[0]; i++)
+	{
+		for (int j = 0; j < array.shape[1]; j++)
+			os << array[i][j] << '\t';
+		os << '\n';
+	}
+	return os;
+}
+
+template<class T>
 Array<T> rand_uniform(T min, T max, int n)
 {
 	Array<T> array{ n };

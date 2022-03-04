@@ -1,9 +1,11 @@
 #pragma once
-#include <vector>
+#include <iostream>
 
 template <class T>
 class Array
 {
+	template<class T>
+	friend std::ostream& operator<<(std::ostream& os, Array<T>& array);
 private:
 	T** array;
 	int shape[2];
@@ -18,6 +20,7 @@ public:
 	Array(int n, int m);
 
 	T* operator[](int i);
+	Array<T> operator+(Array<T> arr2);
 
 	void rand_uniform(T min, T max);
 };
