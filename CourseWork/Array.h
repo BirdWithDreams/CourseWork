@@ -22,8 +22,8 @@ public:
 	void rand_uniform(T min, T max);
 };
 
-//template <class T>
-//Array<T> rand_uniform(T min, T max, int n);
-//
-//template <class T>
-//Array<T> rand_uniform(T min, T max, int n, int m);
+template <class T>
+Array<T> rand_uniform(T min, T max, int n);
+
+template <class T>
+Array<T> rand_uniform(T min, T max, int n, int m);

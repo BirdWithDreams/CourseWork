@@ -92,18 +92,18 @@ void Array<T>::rand_uniform(T min, T max)
 			array[i][j] = rand() / static_cast<double>(RAND_MAX) * (max - min) + min;
 };
 
-//template<class T>
-//Array<T> rand_uniform(T min, T max, int n)
-//{
-//	Array<T> array{ n };
-//	array.rand_uniform(min, max);
-//	return array;
-//}
-//
-//template<class T>
-//Array<T> rand_uniform(T min, T max, int n, int m)
-//{
-//	Array<T> array{ n, m };
-//	array.rand_uniform(min, max);
-//	return array;
-//}
+template<class T>
+Array<T> rand_uniform(T min, T max, int n)
+{
+	Array<T> array{ n };
+	array.rand_uniform(min, max);
+	return array;
+}
+
+template<class T>
+Array<T> rand_uniform(T min, T max, int n, int m)
+{
+	Array<T> array{ n, m };
+	array.rand_uniform(min, max);
+	return array;
+}
