@@ -12,7 +12,7 @@ template<class T>
 Array<T>::Array(T* begin, T* end)
 {
 	int n = end - begin;
-	this->array = new T*[1];
+	this->array = new T * [1];
 	this->array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
@@ -25,7 +25,7 @@ Array<T>::Array(T* begin, T* end)
 template<class T>
 Array<T>::Array(T* arr, int n)
 {
-	this->array = new T*[1];
+	this->array = new T * [1];
 	this->array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
@@ -38,7 +38,7 @@ Array<T>::Array(T* arr, int n)
 template<class T>
 Array<T>::Array(T** arr, int n, int m)
 {
-	this->array = new T*[n];
+	this->array = new T * [n];
 	for (int i = 0; i < n; i++)
 		this->array[i] = new T[m];
 
@@ -53,7 +53,7 @@ Array<T>::Array(T** arr, int n, int m)
 template<class T>
 Array<T>::Array(int n)
 {
-	array = new T*[1];
+	array = new T * [1];
 	array[0] = new T[n];
 
 	for (int i = 0; i < n; i++)
@@ -66,7 +66,7 @@ Array<T>::Array(int n)
 template<class T>
 Array<T>::Array(int n, int m)
 {
-	this->array = new T*[n];
+	this->array = new T * [n];
 	for (int i = 0; i < n; i++)
 		array[i] = new T[m];
 
@@ -104,7 +104,7 @@ Array<T> Array<T>::operator+(Array<T>& arr2)
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		T** arr = new T* [n];
+		T** arr = new T * [n];
 		for (int i = 0; i < n; i++)
 			arr[i] = new T[m];
 
@@ -142,7 +142,7 @@ Array<T> Array<T>::operator*(Array<T>& arr2)
 
 	if (n1 == m2)
 	{
-		T** arr = new T* [n1];
+		T** arr = new T * [n1];
 		for (int i = 0; i < n1; i++)
 			arr[i] = new T[m2];
 
@@ -154,7 +154,7 @@ Array<T> Array<T>::operator*(Array<T>& arr2)
 					sum += this->array[i][k] * arr2[k][j];
 				arr[i][j] = sum;
 			}
-				
+
 		return Array<T>{arr, n1, m2};
 	}
 
@@ -166,7 +166,7 @@ Array<T> Array<T>::operator/(T num)
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	T** arr = new T* [n];
+	T** arr = new T * [n];
 	for (int i = 0; i < n; i++)
 		arr[i] = new T[m];
 
