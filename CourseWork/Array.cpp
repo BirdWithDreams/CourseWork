@@ -244,6 +244,19 @@ Array<T> Array<T>::operator-() const
 
 template<class T>
 template<class U>
+Array<T>& Array<T>::operator+=(U num)
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			this->array[i][j] += static_cast<T>(num);
+	return *this;
+}
+
+template<class T>
+template<class U>
 Array<T> Array<T>::operator-(U num) const
 {
 	int n = this->shape[0];

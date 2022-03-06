@@ -24,6 +24,7 @@ public:
 
 	T* operator[](int i);
 
+
 	Array<T> operator+(Array<T>& _arr) const;
 
 	template<class U>
@@ -32,10 +33,12 @@ public:
 	template<class T, class U>
 	friend Array<T> operator+(U num, Array<T>& _arr);
 
+
 	Array<T>& operator+=(Array<T>& _arr);
 
 	template<class U>
 	Array<T>& operator+=(U num);
+
 
 	Array<T> operator-() const;
 	Array<T> operator-(Array<T>& _arr) const;
@@ -46,10 +49,12 @@ public:
 	template<class T, class U>
 	friend Array<T> operator-(U num, Array<T>& _arr);
 
+
 	Array<T>& operator-=(Array<T>& _arr);
 
 	template<class U>
 	Array<T>& operator-=(U num);
+
 
 	Array<T> operator*(Array<T>& _arr) const;
 
@@ -58,6 +63,7 @@ public:
 
 	template<class T, class U>
 	friend Array<T> operator*(U num, Array<T>& _arr);
+
 
 	template<class U>
 	Array<T> operator/(U num) const;
