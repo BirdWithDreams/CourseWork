@@ -98,9 +98,9 @@ T* Array<T>::operator[](int i)
 }
 
 template<class T>
-Array<T> Array<T>::operator+(Array<T>& arr2)
+Array<T> Array<T>::operator+(Array<T>& _arr) const
 {
-	if (this->shape[0] == arr2.shape[0] && this->shape[1] == arr2.shape[1])
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
@@ -110,14 +110,32 @@ Array<T> Array<T>::operator+(Array<T>& arr2)
 
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
-				arr[i][j] = this->array[i][j] + arr2[i][j];
+				arr[i][j] = this->array[i][j] + _arr[i][j];
 		return Array<T>{ arr, n, m };
 	}
 	return Array<T>();
 }
 
 template<class T>
-Array<T> Array<T>::operator*(T num)
+template<class U>
+Array<T> Array<T>::operator+(U num)
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = this->array[i][j] + static_cast<T>(num);
+
+	return Array<T>{ arr, n, m };
+}
+;
+
+template<class T>
+Array<T> Array<T>::operator*(T num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
@@ -133,12 +151,12 @@ Array<T> Array<T>::operator*(T num)
 }
 
 template<class T>
-Array<T> Array<T>::operator*(Array<T>& arr2)
+Array<T> Array<T>::operator*(Array<T>& _arr) const
 {
 	int n1 = this->shape[0],
 		m1 = this->shape[1],
-		n2 = arr2.shape[0],
-		m2 = arr2.shape[1];
+		n2 = _arr.shape[0],
+		m2 = _arr.shape[1];
 
 	if (n1 == m2)
 	{
@@ -151,7 +169,7 @@ Array<T> Array<T>::operator*(Array<T>& arr2)
 			{
 				T sum = 0;
 				for (int k = 0; k < m1; k++)
-					sum += this->array[i][k] * arr2[k][j];
+					sum += this->array[i][k] * _arr[k][j];
 				arr[i][j] = sum;
 			}
 
@@ -162,7 +180,7 @@ Array<T> Array<T>::operator*(Array<T>& arr2)
 }
 
 template<class T>
-Array<T> Array<T>::operator/(T num)
+Array<T> Array<T>::operator/(T num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
@@ -175,6 +193,58 @@ Array<T> Array<T>::operator/(T num)
 			arr[i][j] = this->array[i][j] / num;
 
 	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+Array<T> Array<T>::operator-() const
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = -this->array[i][j];
+
+	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+template<class U>
+Array<T> Array<T>::operator-(U num) const
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = this->array[i][j] - static_cast<T>(num);
+
+	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+Array<T> Array<T>::operator-(Array<T>& _arr) const
+{
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
+	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+		T** arr = new T * [n];
+		for (int i = 0; i < n; i++)
+			arr[i] = new T[m];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				arr[i][j] = this->array[i][j] - _arr[i][j];
+		return Array<T>{ arr, n, m };
+	}
+	return Array<T>();
 }
 
 template<class T>
@@ -195,6 +265,22 @@ std::ostream& operator<<(std::ostream& os, Array<T>& array)
 		os << '\n';
 	}
 	return os;
+}
+
+template<class T, class U>
+Array<T> operator-(U num, Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = static_cast<T>(num) - _arr[i][j];
+
+	return Array<T>{ arr, n, m };
 }
 
 template<class T>
@@ -243,4 +329,20 @@ Array<T> rand_uniform(T min, T max, int n, int m)
 	Array<T> array{ n, m };
 	array.rand_uniform(min, max);
 	return array;
+}
+
+template<class T>
+Array<T> exponent(Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = exp(_arr[i][j]);
+
+	return Array<double>{arr, n, m};
 }

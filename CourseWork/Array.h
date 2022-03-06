@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <cmath>
 
 template <class T>
 class Array
@@ -22,18 +23,28 @@ public:
 	//~Array();
 
 	T* operator[](int i);
-	Array<T> operator+(Array<T>& arr2);
+	Array<T> operator+(Array<T>& _arr) const;
 
-	Array<T> operator*(T num);
+	template<class U>
+	Array<T> operator+(U num);
+
+	Array<T> operator-() const;
+	template<class U>
+	Array<T> operator-(U num) const;
+	Array<T> operator-(Array<T>& _arr) const;
+	template<class T, class U>
+	friend Array<T> operator-(U num, Array<T>& arr);
+
+	Array<T> operator*(Array<T>& _arr) const;
+	Array<T> operator*(T num) const;
 	template<class T>
-	friend Array<T> operator*(T num, Array<T>& arr);
+	friend Array<T> operator*(T num, Array<T>& _arr);
 
-	Array<T> operator*(Array<T>& arr2);
-	Array<T> operator/(T num);
+	Array<T> operator/(T num) const;
 	template<class T>
 	friend Array<T> operator/(T num, Array<T>& _arr);
-	//bool operator bool();
-	
+
+
 	//Array<T> dot(Array<T> arr2);
 
 	void rand_uniform(T min, T max);
@@ -44,3 +55,6 @@ Array<T> rand_uniform(T min, T max, int n);
 
 template <class T>
 Array<T> rand_uniform(T min, T max, int n, int m);
+
+template<class T>
+Array<T> exponent(Array<T>& _arr);
