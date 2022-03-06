@@ -23,26 +23,47 @@ public:
 	//~Array();
 
 	T* operator[](int i);
+
 	Array<T> operator+(Array<T>& _arr) const;
 
 	template<class U>
 	Array<T> operator+(U num);
 
+	template<class T, class U>
+	friend Array<T> operator+(U num, Array<T>& _arr);
+
+	Array<T>& operator+=(Array<T>& _arr);
+
+	template<class U>
+	Array<T>& operator+=(U num);
+
 	Array<T> operator-() const;
+	Array<T> operator-(Array<T>& _arr) const;
+
 	template<class U>
 	Array<T> operator-(U num) const;
-	Array<T> operator-(Array<T>& _arr) const;
+
 	template<class T, class U>
-	friend Array<T> operator-(U num, Array<T>& arr);
+	friend Array<T> operator-(U num, Array<T>& _arr);
+
+	Array<T>& operator-=(Array<T>& _arr);
+
+	template<class U>
+	Array<T>& operator-=(U num);
 
 	Array<T> operator*(Array<T>& _arr) const;
-	Array<T> operator*(T num) const;
-	template<class T>
-	friend Array<T> operator*(T num, Array<T>& _arr);
 
-	Array<T> operator/(T num) const;
-	template<class T>
-	friend Array<T> operator/(T num, Array<T>& _arr);
+	template<class U>
+	Array<T> operator*(U num) const;
+
+	template<class T, class U>
+	friend Array<T> operator*(U num, Array<T>& _arr);
+
+	template<class U>
+	Array<T> operator/(U num) const;
+
+	template<class T, class U>
+	friend Array<T> operator/(U num, Array<T>& _arr);
 
 
 	//Array<T> dot(Array<T> arr2);

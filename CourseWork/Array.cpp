@@ -135,7 +135,21 @@ Array<T> Array<T>::operator+(U num)
 ;
 
 template<class T>
-Array<T> Array<T>::operator*(T num) const
+template<class U>
+Array<T>& Array<T>::operator-=(U num)
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			this->array[i][j] -= static_cast<T>(num);
+	return *this;
+}
+
+template<class T>
+template<class U>
+Array<T> Array<T>::operator*(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
@@ -145,7 +159,7 @@ Array<T> Array<T>::operator*(T num) const
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] * num;
+			arr[i][j] = this->array[i][j] * static_cast<T>(num);
 
 	return Array<T>{ arr, n, m };
 }
@@ -180,7 +194,8 @@ Array<T> Array<T>::operator*(Array<T>& _arr) const
 }
 
 template<class T>
-Array<T> Array<T>::operator/(T num) const
+template<class U>
+Array<T> Array<T>::operator/(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
@@ -190,9 +205,25 @@ Array<T> Array<T>::operator/(T num) const
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] / num;
+			arr[i][j] = this->array[i][j] / static_cast<T>(num);
 
 	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+Array<T>& Array<T>::operator+=(Array<T>& _arr)
+{
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
+	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				this->array[i][j] += _arr[i][j];
+		return *this;
+	}
+	return *this;
 }
 
 template<class T>
@@ -248,6 +279,22 @@ Array<T> Array<T>::operator-(Array<T>& _arr) const
 }
 
 template<class T>
+Array<T>& Array<T>::operator-=(Array<T>& _arr)
+{
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
+	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				this->array[i][j] -= _arr[i][j];
+		return *this;
+	}
+	return *this;
+}
+
+template<class T>
 void Array<T>::rand_uniform(T min, T max)
 {
 	for (int i = 0; i < shape[0]; i++)
@@ -268,6 +315,22 @@ std::ostream& operator<<(std::ostream& os, Array<T>& array)
 }
 
 template<class T, class U>
+Array<T> operator+(U num, Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = static_cast<T>(num) + _arr[i][j];
+
+	return Array<T>{ arr, n, m };
+}
+
+template<class T, class U>
 Array<T> operator-(U num, Array<T>& _arr)
 {
 	int n = _arr.shape[0];
@@ -283,8 +346,8 @@ Array<T> operator-(U num, Array<T>& _arr)
 	return Array<T>{ arr, n, m };
 }
 
-template<class T>
-Array<T> operator*(T num, Array<T>& _arr)
+template<class T, class U>
+Array<T> operator*(U num, Array<T>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
@@ -294,13 +357,13 @@ Array<T> operator*(T num, Array<T>& _arr)
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			arr[i][j] = _arr[i][j] * num;
+			arr[i][j] = _arr[i][j] * static_cast<T>(num);
 
 	return Array<T>{ arr, n, m };
 }
 
-template<class T>
-Array<T> operator/(T num, Array<T>& _arr)
+template<class T, class U>
+Array<T> operator/(U num, Array<T>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
@@ -310,7 +373,7 @@ Array<T> operator/(T num, Array<T>& _arr)
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			arr[i][j] = num / _arr[i][j];
+			arr[i][j] = static_cast<T>(num) / _arr[i][j];
 
 	return Array<T>{ arr, n, m };
 }
