@@ -19,8 +19,22 @@ public:
 	Array(int n);
 	Array(int n, int m);
 
+	//~Array();
+
 	T* operator[](int i);
-	Array<T> operator+(Array<T> arr2);
+	Array<T> operator+(Array<T>& arr2);
+
+	Array<T> operator*(T num);
+	template<class T>
+	friend Array<T> operator*(T num, Array<T>& arr);
+
+	Array<T> operator*(Array<T>& arr2);
+	Array<T> operator/(T num);
+	template<class T>
+	friend Array<T> operator/(T num, Array<T>& _arr);
+	//bool operator bool();
+	
+	//Array<T> dot(Array<T> arr2);
 
 	void rand_uniform(T min, T max);
 };

@@ -76,12 +76,105 @@ Array<T>::Array(int n, int m)
 
 	shape[0] = n;
 	shape[1] = m;
-};
+}
+;
+
+//template<class T>
+//Array<T>::~Array()
+//{
+//	int n = this->shape[0];
+//	for (int i = 0; i < n; i++)
+//		delete[] array[i];
+//
+//	delete[] array;
+//	delete[] shape;
+//}
+//;
 
 template<class T>
 T* Array<T>::operator[](int i)
 {
 	return array[i];
+}
+
+template<class T>
+Array<T> Array<T>::operator+(Array<T>& arr2)
+{
+	if (this->shape[0] == arr2.shape[0] && this->shape[1] == arr2.shape[1])
+	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+		T** arr = new T* [n];
+		for (int i = 0; i < n; i++)
+			arr[i] = new T[m];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				arr[i][j] = this->array[i][j] + arr2[i][j];
+		return Array<T>{ arr, n, m };
+	}
+	return Array<T>();
+}
+
+template<class T>
+Array<T> Array<T>::operator*(T num)
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = this->array[i][j] * num;
+
+	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+Array<T> Array<T>::operator*(Array<T>& arr2)
+{
+	int n1 = this->shape[0],
+		m1 = this->shape[1],
+		n2 = arr2.shape[0],
+		m2 = arr2.shape[1];
+
+	if (n1 == m2)
+	{
+		T** arr = new T* [n1];
+		for (int i = 0; i < n1; i++)
+			arr[i] = new T[m2];
+
+		for (int i = 0; i < n1; i++)
+			for (int j = 0; j < m2; j++)
+			{
+				T sum = 0;
+				for (int k = 0; k < m1; k++)
+					sum += this->array[i][k] * arr2[k][j];
+				arr[i][j] = sum;
+			}
+				
+		return Array<T>{arr, n1, m2};
+	}
+
+	return Array<T>();
+}
+
+template<class T>
+Array<T> Array<T>::operator/(T num)
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	T** arr = new T* [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = this->array[i][j] / num;
+
+	return Array<T>{ arr, n, m };
 }
 
 template<class T>
@@ -102,6 +195,38 @@ std::ostream& operator<<(std::ostream& os, Array<T>& array)
 		os << '\n';
 	}
 	return os;
+}
+
+template<class T>
+Array<T> operator*(T num, Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = _arr[i][j] * num;
+
+	return Array<T>{ arr, n, m };
+}
+
+template<class T>
+Array<T> operator/(T num, Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = num / _arr[i][j];
+
+	return Array<T>{ arr, n, m };
 }
 
 template<class T>
