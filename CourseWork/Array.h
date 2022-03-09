@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include <iostream>
 #include <cmath>
 
@@ -7,6 +8,10 @@ class Array
 {
 	template<class T>
 	friend std::ostream& operator<<(std::ostream& os, Array<T>& array);
+
+	template<class T>
+	friend Array<T> exponent(Array<T>& _arr);
+
 private:
 	T** array;
 	int shape[2];
@@ -28,7 +33,7 @@ public:
 	Array<T> operator+(Array<T>& _arr) const;
 
 	template<class U>
-	Array<T> operator+(U num);
+	Array<T> operator+(U num) const;
 
 	template<class T, class U>
 	friend Array<T> operator+(U num, Array<T>& _arr);
@@ -77,11 +82,8 @@ public:
 	void rand_uniform(T min, T max);
 };
 
-template <class T>
-Array<T> rand_uniform(T min, T max, int n);
+template <class T = double, class U>
+Array<T> rand_uniform(U min, U max, int n);
 
-template <class T>
-Array<T> rand_uniform(T min, T max, int n, int m);
-
-template<class T>
-Array<T> exponent(Array<T>& _arr);
+template <class T = double, class U>
+Array<T> rand_uniform(U min, U max, int n, int m);

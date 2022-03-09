@@ -118,7 +118,7 @@ Array<T> Array<T>::operator+(Array<T>& _arr) const
 
 template<class T>
 template<class U>
-Array<T> Array<T>::operator+(U num)
+Array<T> Array<T>::operator+(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
@@ -129,6 +129,23 @@ Array<T> Array<T>::operator+(U num)
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			arr[i][j] = this->array[i][j] + static_cast<T>(num);
+
+	return Array<T>{ arr, n, m };
+}
+;
+
+template<class T, class U>
+Array<T> operator+(U num, Array<T>& _arr)
+{
+	int n = _arr.shape[0];
+	int m = _arr.shape[1];
+	T** arr = new T * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = static_cast<T>(num) + _arr[i][j];
 
 	return Array<T>{ arr, n, m };
 }
@@ -310,9 +327,12 @@ Array<T>& Array<T>::operator-=(Array<T>& _arr)
 template<class T>
 void Array<T>::rand_uniform(T min, T max)
 {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dist(min, max);
 	for (int i = 0; i < shape[0]; i++)
 		for (int j = 0; j < shape[1]; j++)
-			array[i][j] = rand() / static_cast<double>(RAND_MAX) * (max - min) + min;
+			array[i][j] = dist(gen);
 };
 
 template<class T>
@@ -325,22 +345,6 @@ std::ostream& operator<<(std::ostream& os, Array<T>& array)
 		os << '\n';
 	}
 	return os;
-}
-
-template<class T, class U>
-Array<T> operator+(U num, Array<T>& _arr)
-{
-	int n = _arr.shape[0];
-	int m = _arr.shape[1];
-	T** arr = new T * [n];
-	for (int i = 0; i < n; i++)
-		arr[i] = new T[m];
-
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < m; j++)
-			arr[i][j] = static_cast<T>(num) + _arr[i][j];
-
-	return Array<T>{ arr, n, m };
 }
 
 template<class T, class U>
@@ -391,19 +395,19 @@ Array<T> operator/(U num, Array<T>& _arr)
 	return Array<T>{ arr, n, m };
 }
 
-template<class T>
-Array<T> rand_uniform(T min, T max, int n)
+template<class T = double, class U>
+Array<T> rand_uniform(U min, U max, int n)
 {
 	Array<T> array{ n };
-	array.rand_uniform(min, max);
+	array.rand_uniform(static_cast<T>(min), static_cast<T>(max));
 	return array;
 }
 
-template<class T>
-Array<T> rand_uniform(T min, T max, int n, int m)
+template<class T = double, class U>
+Array<T> rand_uniform(U min, U max, int n, int m)
 {
 	Array<T> array{ n, m };
-	array.rand_uniform(min, max);
+	array.rand_uniform(static_cast<T>(min), static_cast<T>(max));
 	return array;
 }
 
@@ -422,3 +426,4 @@ Array<T> exponent(Array<T>& _arr)
 
 	return Array<double>{arr, n, m};
 }
+
