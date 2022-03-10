@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActivationFunctions.cpp" />
     <ClCompile Include="Array.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Perceptron.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActivationFunctions.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Perceptron.h" />
