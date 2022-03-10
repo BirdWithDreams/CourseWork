@@ -412,7 +412,7 @@ Array<T> rand_uniform(U min, U max, int n, int m)
 }
 
 template<class T>
-Array<T> exponent(Array<T>& _arr)
+Array<T> exponent(const Array<T>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
@@ -422,7 +422,7 @@ Array<T> exponent(Array<T>& _arr)
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			arr[i][j] = exp(_arr[i][j]);
+			arr[i][j] = exp(_arr.array[i][j]);
 
 	return Array<double>{arr, n, m};
 }

@@ -10,7 +10,7 @@ class Array
 	friend std::ostream& operator<<(std::ostream& os, Array<T>& array);
 
 	template<class T>
-	friend Array<T> exponent(Array<T>& _arr);
+	friend Array<T> exponent(const Array<T>& _arr);
 
 private:
 	T** array;
