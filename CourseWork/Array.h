@@ -27,7 +27,7 @@ public:
 
 	//~Array();
 
-	T* operator[](int i);
+	T* operator[](int i) const;
 
 
 	Array<T> operator+(Array<T>& _arr) const;
@@ -77,9 +77,12 @@ public:
 	template<class T, class U>
 	friend Array<T> operator/(U num, Array<T>& _arr);
 
+	Array<T>& operator=(const Array<T>& other);
 
-	//Array<T> dot(Array<T> arr2);
-	void get_shape(int& n, int& m);
+
+	Array<T> dot(const Array<T>& _arr) const;
+
+	void get_shape(int& n, int& m) const;
 
 	void rand_uniform(T min, T max);
 };
@@ -89,3 +92,6 @@ Array<T> rand_uniform(U min, U max, int n);
 
 template <class T = double, class U>
 Array<T> rand_uniform(U min, U max, int n, int m);
+
+template<class T>
+Array<T> dot(const Array<T>& arr1, const Array<T>& arr2);

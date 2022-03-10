@@ -10,8 +10,11 @@ int main()
 	arr1[0][0] = 0;
 	std::cout << arr1 << '\n' << arr2 << '\n';
 
-	auto arr = ActFunc::ReLU(arr1);
-	std::cout << arr;
+	auto arr = ActFunc::sigmoid(arr1, arr2);
+	std::cout << arr << '\n' << arr2 << '\n';
+
+	std::string st = "s,jnv";
+	std::string s = st;
 
 	return 0;
 }

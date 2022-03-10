@@ -92,7 +92,7 @@ Array<T>::Array(int n, int m)
 //;
 
 template<class T>
-T* Array<T>::operator[](int i)
+T* Array<T>::operator[](int i) const
 {
 	return array[i];
 }
@@ -184,29 +184,19 @@ Array<T> Array<T>::operator*(U num) const
 template<class T>
 Array<T> Array<T>::operator*(Array<T>& _arr) const
 {
-	int n1 = this->shape[0],
-		m1 = this->shape[1],
-		n2 = _arr.shape[0],
-		m2 = _arr.shape[1];
-
-	if (n1 == m2)
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
-		T** arr = new T * [n1];
-		for (int i = 0; i < n1; i++)
-			arr[i] = new T[m2];
+		int n = this->shape[0];
+		int m = this->shape[1];
+		T** arr = new T * [n];
+		for (int i = 0; i < n; i++)
+			arr[i] = new T[m];
 
-		for (int i = 0; i < n1; i++)
-			for (int j = 0; j < m2; j++)
-			{
-				T sum = 0;
-				for (int k = 0; k < m1; k++)
-					sum += this->array[i][k] * _arr[k][j];
-				arr[i][j] = sum;
-			}
-
-		return Array<T>{arr, n1, m2};
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				arr[i][j] = this->array[i][j] * _arr[i][j];
+		return Array<T>{ arr, n, m };
 	}
-
 	return Array<T>();
 }
 
@@ -344,7 +334,64 @@ Array<T>& Array<T>::operator-=(Array<T>& _arr)
 }
 
 template<class T>
-void Array<T>::get_shape(int& n, int& m)
+Array<T>& Array<T>::operator=(const Array<T>& other)
+{
+	if (this == &other) return *this;
+
+	if (!this->array)
+	{
+		for (int i = 0; i < this->shape[0]; i++)
+			delete[] this->array[i];
+		delete[] this->array;
+	}
+
+	int n, m;
+	other.get_shape(n, m);
+
+	this->array = new T * [n];
+	for (int i = 0; i < n; i++)
+		this->array[i] = new T[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			this->array[i][j] = other[i][j];
+
+	this->shape[0] = n;
+	this->shape[1] = m;
+	return *this;
+}
+
+template<class T>
+Array<T> Array<T>::dot(const Array<T>& _arr) const
+{
+	int n1 = this->shape[0],
+		m1 = this->shape[1],
+		n2 = _arr.shape[0],
+		m2 = _arr.shape[1];
+
+	if (n1 == m2)
+	{
+		T** arr = new T * [n1];
+		for (int i = 0; i < n1; i++)
+			arr[i] = new T[m2];
+
+		for (int i = 0; i < n1; i++)
+			for (int j = 0; j < m2; j++)
+			{
+				T sum = 0;
+				for (int k = 0; k < m1; k++)
+					sum += this->array[i][k] * _arr[k][j];
+				arr[i][j] = sum;
+			}
+
+		return Array<T>{arr, n1, m2};
+	}
+
+	return Array<T>();
+}
+
+template<class T>
+void Array<T>::get_shape(int& n, int& m) const
 {
 	n = this->shape[0];
 	m = this->shape[1];
@@ -435,6 +482,12 @@ Array<T> rand_uniform(U min, U max, int n, int m)
 	Array<T> array{ n, m };
 	array.rand_uniform(static_cast<T>(min), static_cast<T>(max));
 	return array;
+}
+
+template<class T>
+Array<T> dot(const Array<T>& arr1, const Array<T>& arr2)
+{
+	return arr1.dot(arr2);
 }
 
 template<class T>

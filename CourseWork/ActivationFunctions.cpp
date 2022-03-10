@@ -12,6 +12,16 @@ namespace ActFunc
 	}
 
 	template<class T>
+	Array<T> sigmoid(const Array<T>& x, Array<T>& der)
+	{
+		auto res = sigmoid(x);
+		auto res1 = 1 - res;
+		der = res * res1;
+
+		return res;
+	}
+
+	template<class T>
 	Array<T> tanh(const Array<T>& x)
 	{
 		auto x1 = x * 2;
