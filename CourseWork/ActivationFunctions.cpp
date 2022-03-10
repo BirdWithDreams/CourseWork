@@ -33,6 +33,15 @@ namespace ActFunc
 	}
 
 	template<class T>
+	Array<T> tanh(const Array<T>& x, Array<T>& der)
+	{
+		auto res = tanh(x);
+		auto _der = res * res;
+		der = 1 - _der;
+		return res;
+	}
+
+	template<class T>
 	Array<T> ReLU(Array<T>& x)
 	{
 		int n, m;

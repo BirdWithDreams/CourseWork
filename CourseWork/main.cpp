@@ -10,7 +10,7 @@ int main()
 	arr1[0][0] = 0;
 	std::cout << arr1 << '\n' << arr2 << '\n';
 
-	auto arr = ActFunc::sigmoid(arr1, arr2);
+	auto arr = ActFunc::tanh(arr1, arr2);
 	std::cout << arr << '\n' << arr2 << '\n';
 
 	std::string st = "s,jnv";
