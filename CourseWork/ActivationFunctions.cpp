@@ -55,4 +55,22 @@ namespace ActFunc
 
 		return res;
 	}
+	template<class T>
+	Array<T> ReLU(const Array<T>& x, Array<T>& der)
+	{
+		int n, m;
+		x.get_shape(n, m);
+		Array<T> res{ n, m };
+		Array<T> _der{ n, m };
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				if (x[i][j] > 0)
+				{
+					res[i][j] = x[i][j];
+					_der[i][j] = 1;
+				}
+		der = _der;
+		return res;
+	}
 }

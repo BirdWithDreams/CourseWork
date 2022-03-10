@@ -338,7 +338,7 @@ Array<T>& Array<T>::operator=(const Array<T>& other)
 {
 	if (this == &other) return *this;
 
-	if (!this->array)
+	if (this->array)
 	{
 		for (int i = 0; i < this->shape[0]; i++)
 			delete[] this->array[i];
