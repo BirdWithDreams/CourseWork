@@ -10,7 +10,7 @@ int main()
 	arr1[0][0] = 0;
 	std::cout << arr1 << '\n' << arr2 << '\n';
 
-	auto arr = ActFunc::tanh(arr1);
+	auto arr = ActFunc::ReLU(arr1);
 	std::cout << arr;
 
 	return 0;

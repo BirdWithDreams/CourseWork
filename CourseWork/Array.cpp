@@ -344,6 +344,13 @@ Array<T>& Array<T>::operator-=(Array<T>& _arr)
 }
 
 template<class T>
+void Array<T>::get_shape(int& n, int& m)
+{
+	n = this->shape[0];
+	m = this->shape[1];
+}
+
+template<class T>
 void Array<T>::rand_uniform(T min, T max)
 {
 	std::random_device rd;

@@ -11,5 +11,5 @@ namespace ActFunc
 	Array<T> tanh(const Array<T>& x);
 
 	template<class T>
-	Array<T> ReLU(const Array<T>& x);
+	Array<T> ReLU(Array<T>& x);
 }

@@ -79,6 +79,7 @@ public:
 
 
 	//Array<T> dot(Array<T> arr2);
+	void get_shape(int& n, int& m);
 
 	void rand_uniform(T min, T max);
 };
