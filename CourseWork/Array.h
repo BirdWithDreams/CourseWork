@@ -69,6 +69,7 @@ public:
 	template<class T, class U>
 	friend Array<T> operator*(U num, Array<T>& _arr);
 
+	Array<T> operator/(Array<T>& _arr) const;
 
 	template<class U>
 	Array<T> operator/(U num) const;

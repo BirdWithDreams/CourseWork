@@ -211,6 +211,25 @@ Array<T> Array<T>::operator*(Array<T>& _arr) const
 }
 
 template<class T>
+Array<T> Array<T>::operator/(Array<T>& _arr) const
+{
+	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
+	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+		T** arr = new T * [n];
+		for (int i = 0; i < n; i++)
+			arr[i] = new T[m];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				arr[i][j] = this->array[i][j] / _arr[i][j];
+		return Array<T>{ arr, n, m };
+	}
+	return Array<T>();
+}
+
+template<class T>
 template<class U>
 Array<T> Array<T>::operator/(U num) const
 {
