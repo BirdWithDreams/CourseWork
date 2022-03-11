@@ -434,7 +434,7 @@ std::ostream& operator<<(std::ostream& os, Array<_Ty>& array)
 	{
 		for (int j = 0; j < array.shape[1]; j++)
 			os << std::setiosflags(std::ios::left)
-			   << std::setw(10) << array[i][j];
+			<< std::setw(10) << array[i][j];
 		os << '\n';
 	}
 	return os;
@@ -525,4 +525,3 @@ Array<_Ty> exponent(const Array<_Ty>& _arr)
 
 	return Array<double>{arr, n, m};
 }
-
