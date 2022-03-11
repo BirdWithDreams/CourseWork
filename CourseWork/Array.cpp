@@ -414,7 +414,8 @@ std::ostream& operator<<(std::ostream& os, Array<T>& array)
 	for (int i = 0; i < array.shape[0]; i++)
 	{
 		for (int j = 0; j < array.shape[1]; j++)
-			os << array[i][j] << '\t';
+			os << std::setiosflags(std::ios::left)
+			   << std::setw(10) << array[i][j];
 		os << '\n';
 	}
 	return os;

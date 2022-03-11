@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
 template <class T>
 class Array
