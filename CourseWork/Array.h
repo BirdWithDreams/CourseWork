@@ -16,7 +16,6 @@ class Array
 private:
 	_Ty** array;
 	int shape[2];
-	//int dims;
 
 public:
 	Array();
@@ -82,6 +81,8 @@ public:
 
 
 	Array<_Ty> dot(const Array<_Ty>& _arr) const;
+
+	Array<_Ty>& T();
 
 	void get_shape(int& n, int& m) const;
 

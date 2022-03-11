@@ -391,6 +391,25 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 }
 
 template<class _Ty>
+Array<_Ty>& Array<_Ty>::T()
+{
+	static bool isFirst = true;
+	static int n = this->shape[0];
+	static int m = this->shape[1];
+	static auto arr = new Array<_Ty>(m, n);
+
+	if (isFirst)
+	{
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				(*arr)[j][i] = this->array[i][j];
+		isFirst = false;
+	}
+
+	return *arr;
+}
+
+template<class _Ty>
 void Array<_Ty>::get_shape(int& n, int& m) const
 {
 	n = this->shape[0];

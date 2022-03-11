@@ -5,17 +5,18 @@
 
 int main()
 {
-	auto arr1 = rand_uniform(0, 10, 5);
+	auto arr1 = rand_uniform(0, 10, 500, 200);
 	auto arr2 = rand_uniform(0, 10, 5);
 	auto arr3 = rand_uniform(0, 10, 5);
 
-	std::cout << arr1 << '\n'
-		<< arr2 << '\n'
-		<< arr3 << '\n';
+	//std::cout << arr1 << '\n';
 
-	auto arr = arr1 + arr2 + arr3;
+	clock_t start = clock();
+	for (size_t i = 0; i < 5000; i++)
+		arr1.T();
+	clock_t end = clock();
 
-	std::cout << arr;
+	std::cout << end - start;
 
 	return 0;
 }
