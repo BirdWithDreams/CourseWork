@@ -4,95 +4,95 @@
 #include <cmath>
 #include <iomanip>
 
-template <class T>
+template <class _Ty>
 class Array
 {
-	template<class T>
-	friend std::ostream& operator<<(std::ostream& os, Array<T>& array);
+	template<class _Ty>
+	friend std::ostream& operator<<(std::ostream& os, Array<_Ty>& array);
 
-	template<class T>
-	friend Array<T> exponent(const Array<T>& _arr);
+	template<class _Ty>
+	friend Array<_Ty> exponent(const Array<_Ty>& _arr);
 
 private:
-	T** array;
+	_Ty** array;
 	int shape[2];
 	//int dims;
 
 public:
 	Array();
-	Array(T* begin, T* end);
-	Array(T* arr, int n);
-	Array(T** arr, int n, int m);
+	Array(_Ty* begin, _Ty* end);
+	Array(_Ty* arr, int n);
+	Array(_Ty** arr, int n, int m);
 	Array(int n);
 	Array(int n, int m);
 
 	//~Array();
 
-	T* operator[](int i) const;
+	_Ty* operator[](int i) const;
 
 
-	Array<T> operator+(Array<T>& _arr) const;
-
-	template<class U>
-	Array<T> operator+(U num) const;
-
-	template<class T, class U>
-	friend Array<T> operator+(U num, Array<T>& _arr);
-
-
-	Array<T>& operator+=(Array<T>& _arr);
+	Array<_Ty> operator+(Array<_Ty>& _arr) const;
 
 	template<class U>
-	Array<T>& operator+=(U num);
+	Array<_Ty> operator+(U num) const;
+
+	template<class _Ty, class U>
+	friend Array<_Ty> operator+(U num, Array<_Ty>& _arr);
 
 
-	Array<T> operator-() const;
-	Array<T> operator-(Array<T>& _arr) const;
-
-	template<class U>
-	Array<T> operator-(U num) const;
-
-	template<class T, class U>
-	friend Array<T> operator-(U num, Array<T>& _arr);
-
-
-	Array<T>& operator-=(Array<T>& _arr);
+	Array<_Ty>& operator+=(Array<_Ty>& _arr);
 
 	template<class U>
-	Array<T>& operator-=(U num);
+	Array<_Ty>& operator+=(U num);
 
 
-	Array<T> operator*(Array<T>& _arr) const;
-
-	template<class U>
-	Array<T> operator*(U num) const;
-
-	template<class T, class U>
-	friend Array<T> operator*(U num, Array<T>& _arr);
-
-	Array<T> operator/(Array<T>& _arr) const;
+	Array<_Ty> operator-() const;
+	Array<_Ty> operator-(Array<_Ty>& _arr) const;
 
 	template<class U>
-	Array<T> operator/(U num) const;
+	Array<_Ty> operator-(U num) const;
 
-	template<class T, class U>
-	friend Array<T> operator/(U num, Array<T>& _arr);
-
-	Array<T>& operator=(const Array<T>& other);
+	template<class _Ty, class U>
+	friend Array<_Ty> operator-(U num, Array<_Ty>& _arr);
 
 
-	Array<T> dot(const Array<T>& _arr) const;
+	Array<_Ty>& operator-=(Array<_Ty>& _arr);
+
+	template<class U>
+	Array<_Ty>& operator-=(U num);
+
+
+	Array<_Ty> operator*(Array<_Ty>& _arr) const;
+
+	template<class U>
+	Array<_Ty> operator*(U num) const;
+
+	template<class _Ty, class U>
+	friend Array<_Ty> operator*(U num, Array<_Ty>& _arr);
+
+	Array<_Ty> operator/(Array<_Ty>& _arr) const;
+
+	template<class U>
+	Array<_Ty> operator/(U num) const;
+
+	template<class _Ty, class U>
+	friend Array<_Ty> operator/(U num, Array<_Ty>& _arr);
+
+	Array<_Ty>& operator=(const Array<_Ty>& other);
+
+
+	Array<_Ty> dot(const Array<_Ty>& _arr) const;
 
 	void get_shape(int& n, int& m) const;
 
-	void rand_uniform(T min, T max);
+	void rand_uniform(_Ty min, _Ty max);
 };
 
-template <class T = double, class U>
-Array<T> rand_uniform(U min, U max, int n);
+template <class _Ty = double, class U>
+Array<_Ty> rand_uniform(U min, U max, int n);
 
-template <class T = double, class U>
-Array<T> rand_uniform(U min, U max, int n, int m);
+template <class _Ty = double, class U>
+Array<_Ty> rand_uniform(U min, U max, int n, int m);
 
-template<class T>
-Array<T> dot(const Array<T>& arr1, const Array<T>& arr2);
+template<class _Ty>
+Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2);
