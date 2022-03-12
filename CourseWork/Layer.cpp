@@ -27,6 +27,15 @@ int Layer::get_size()
 	return this->size;
 }
 
+Array<double> Layer::activation(const Array<double>& input)
+{
+	this->input = input;
+	auto _n = dot(this->input, this->weights);
+
+	this->neurons = this->func(_n, this->derivative);
+	return this->neurons;
+}
+
 std::ostream& operator<<(std::ostream& os, const Layer& layer)
 {
 	os << layer.weights;

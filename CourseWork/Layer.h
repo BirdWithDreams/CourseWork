@@ -12,6 +12,7 @@ private:
 	Array<double> weights;
 	Array<double> neurons;
 	Array<double> derivative;
+	Array<double> input;
 
 	Array<double>(*func)(const Array<double>& x, Array<double>& der);
 
@@ -21,5 +22,7 @@ public:
 
 	void set_weights(int _size);
 	int get_size();
+
+	Array<double> activation(const Array<double>& input);
 };
 

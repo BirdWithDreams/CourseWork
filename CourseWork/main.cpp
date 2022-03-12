@@ -12,7 +12,7 @@ int main()
 
 	perc.init();
 
-	std::cout << perc;
+	perc.start();
 	return 0;
 
 }

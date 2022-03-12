@@ -86,20 +86,20 @@ Array<_Ty>::Array(const Array<_Ty>& other)
 	int n, m;
 	other.get_shape(n, m);
 
-	if (this->shape[0] == n && this->shape[1] == m)
+	/*if (this->shape[0] == n && this->shape[1] == m)
 	{
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				this->array[i][j] = other[i][j];
-	}
+	}*/
 
-	if (this->array)
+	/*if (this->array)
 	{
 		for (int i = 0; i < this->shape[0]; i++)
 			delete[] this->array[i];
 		delete[] this->array;
-	}
-
+	}*/
+	this->array = nullptr;
 
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
@@ -413,7 +413,7 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 		n2 = _arr.shape[0],
 		m2 = _arr.shape[1];
 
-	if (n1 == m2)
+	if (m1 == n2)
 	{
 		_Ty** arr = new _Ty * [n1];
 		for (int i = 0; i < n1; i++)

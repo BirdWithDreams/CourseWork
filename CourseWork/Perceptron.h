@@ -21,10 +21,14 @@ public:
 	void addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der));
 	void init();
 
+	void start();
+
 private:
 	std::string name;
 	double a;
 	long long quantity;
+
+	int first_layer_size;
 
 	LinkedList<Layer> layers;
 
