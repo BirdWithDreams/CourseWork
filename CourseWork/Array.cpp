@@ -133,7 +133,7 @@ _Ty* Array<_Ty>::operator[](int i) const
 }
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator+(Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -217,7 +217,7 @@ Array<_Ty> Array<_Ty>::operator*(U num) const
 }
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator*(Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -236,7 +236,7 @@ Array<_Ty> Array<_Ty>::operator*(Array<_Ty>& _arr) const
 }
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator/(Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -272,7 +272,7 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 }
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator+=(Array<_Ty>& _arr)
+Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -334,7 +334,7 @@ Array<_Ty> Array<_Ty>::operator-(U num) const
 }
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator-(Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -353,7 +353,7 @@ Array<_Ty> Array<_Ty>::operator-(Array<_Ty>& _arr) const
 }
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator-=(Array<_Ty>& _arr)
+Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -501,7 +501,7 @@ Array<_Ty> operator-(U num, Array<_Ty>& _arr)
 }
 
 template<class _Ty, class U>
-Array<_Ty> operator*(U num, Array<_Ty>& _arr)
+Array<_Ty> operator*(U num, const Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];

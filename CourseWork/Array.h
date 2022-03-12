@@ -13,9 +13,11 @@ class Array
 	template<class _Ty>
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);
 
+public:
+	int shape[2];
+
 private:
 	_Ty** array;
-	int shape[2];
 
 public:
 	Array();
@@ -32,52 +34,52 @@ public:
 	_Ty* operator[](int i) const;
 
 
-	Array<_Ty> operator+(Array<_Ty>& _arr) const;
+	Array<_Ty> operator+(const Array<_Ty>& _arr) const;
 
 	template<class U>
 	Array<_Ty> operator+(U num) const;
 
 	template<class _Ty, class U>
-	friend Array<_Ty> operator+(U num, Array<_Ty>& _arr);
+	friend Array<_Ty> operator+(U num, const Array<_Ty>& _arr);
 
 
-	Array<_Ty>& operator+=(Array<_Ty>& _arr);
+	Array<_Ty>& operator+=(const Array<_Ty>& _arr);
 
 	template<class U>
 	Array<_Ty>& operator+=(U num);
 
 
 	Array<_Ty> operator-() const;
-	Array<_Ty> operator-(Array<_Ty>& _arr) const;
+	Array<_Ty> operator-(const Array<_Ty>& _arr) const;
 
 	template<class U>
 	Array<_Ty> operator-(U num) const;
 
 	template<class _Ty, class U>
-	friend Array<_Ty> operator-(U num, Array<_Ty>& _arr);
+	friend Array<_Ty> operator-(U num, const Array<_Ty>& _arr);
 
 
-	Array<_Ty>& operator-=(Array<_Ty>& _arr);
+	Array<_Ty>& operator-=(const Array<_Ty>& _arr);
 
 	template<class U>
 	Array<_Ty>& operator-=(U num);
 
 
-	Array<_Ty> operator*(Array<_Ty>& _arr) const;
+	Array<_Ty> operator*(const Array<_Ty>& _arr) const;
 
 	template<class U>
 	Array<_Ty> operator*(U num) const;
 
 	template<class _Ty, class U>
-	friend Array<_Ty> operator*(U num, Array<_Ty>& _arr);
+	friend Array<_Ty> operator*(U num, const Array<_Ty>& _arr);
 
-	Array<_Ty> operator/(Array<_Ty>& _arr) const;
+	Array<_Ty> operator/(const Array<_Ty>& _arr) const;
 
 	template<class U>
 	Array<_Ty> operator/(U num) const;
 
 	template<class _Ty, class U>
-	friend Array<_Ty> operator/(U num, Array<_Ty>& _arr);
+	friend Array<_Ty> operator/(U num, const Array<_Ty>& _arr);
 
 	Array<_Ty>& operator=(const Array<_Ty>& other);
 
