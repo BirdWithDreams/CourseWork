@@ -3,8 +3,8 @@
 
 int main()
 {
-	Perceptron perc;
-	Layer<double> layer{5, ActFunc::sigmoid<double> };
+	Perceptron perc{"Test", 0.01, 100};
+	perc.addLayer(10, ActFunc::sigmoid);
 
 	return 0;
 }

@@ -12,7 +12,7 @@ private:
 	Array<_Ty> neurons;
 	Array<_Ty> derivative;
 
-	Array<_Ty>(*func)(Array<_Ty>& x, Array<_Ty>& der);
+	Array<_Ty>(*func)(const Array<_Ty>& x, Array<_Ty>& der);
 
 public:
 	Layer(int size, Array<_Ty>(*func)(const Array<_Ty>& x, Array<_Ty>& der));
