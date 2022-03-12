@@ -8,7 +8,7 @@ template<class _El>
 class LinkedList
 {
 	template<class _El>
-	friend std::ostream& operator<<(std::ostream& os, LinkedList<_El>& list);
+	friend std::ostream& operator<<(std::ostream& os, const LinkedList<_El>& list);
 
 private:
 	int cur_size = 0;

@@ -81,7 +81,7 @@ Array<_Ty>::Array(int n, int m)
 template<class _Ty>
 Array<_Ty>::Array(const Array<_Ty>& other)
 {
-	if (this == &other) return *this;
+	if (this == &other) return;
 
 	int n, m;
 	other.get_shape(n, m);
@@ -91,7 +91,6 @@ Array<_Ty>::Array(const Array<_Ty>& other)
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				this->array[i][j] = other[i][j];
-		return *this;
 	}
 
 	if (this->array)
@@ -112,7 +111,6 @@ Array<_Ty>::Array(const Array<_Ty>& other)
 
 	this->shape[0] = n;
 	this->shape[1] = m;
-	return *this;
 }
 ;
 
@@ -474,7 +472,7 @@ void Array<_Ty>::rand_uniform(_Ty min, _Ty max)
 };
 
 template<class _Ty>
-std::ostream& operator<<(std::ostream& os, Array<_Ty>& array)
+std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
 {
 	for (int i = 0; i < array.shape[0]; i++)
 	{

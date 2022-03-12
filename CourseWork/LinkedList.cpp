@@ -92,7 +92,7 @@ int LinkedList<_El>::size()
 }
 
 template<class _El>
-std::ostream& operator<<(std::ostream& os, LinkedList<_El>& list)
+std::ostream& operator<<(std::ostream& os, const LinkedList<_El>& list)
 {
     os << "\nThis list has:\n";
     for (auto i = list.head; i != nullptr; i = i->next)

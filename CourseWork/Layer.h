@@ -4,6 +4,8 @@
 
 class Layer
 {
+	friend std::ostream& operator<<(std::ostream& os, const Layer& layer);
+
 private:
 	int size;
 
@@ -15,5 +17,9 @@ private:
 
 public:
 	Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der));
+	Layer(const Layer& other);
+
+	void set_weights(int _size);
+	int get_size();
 };
 

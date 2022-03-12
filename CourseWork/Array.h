@@ -8,7 +8,7 @@ template <class _Ty>
 class Array
 {
 	template<class _Ty>
-	friend std::ostream& operator<<(std::ostream& os, Array<_Ty>& array);
+	friend std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array);
 
 	template<class _Ty>
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);
