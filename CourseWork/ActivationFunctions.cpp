@@ -6,7 +6,7 @@ namespace ActFunc
 	Array<T> sigmoid(const Array<T>& x)
 	{
 		auto x1 = -x;
-		auto x2 = exponent(x) + 1;
+		auto x2 = exponent(x1) + 1;
 		auto res = 1 / x2;
 		return res;
 	}
@@ -24,12 +24,25 @@ namespace ActFunc
 	template<class T>
 	Array<T> tanh(const Array<T>& x)
 	{
-		auto x1 = x * 2;
+		int
+			n = x.shape[0],
+			m = x.shape[1];
+
+		auto arr = new T * [n];
+		for (int i = 0; i < n; i++)
+			arr[i] = new T[m];
+
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				arr[i][j] = ::tanh(x[i][j]);
+
+		return Array<T>{arr, n, m};
+		/*auto x1 = x * 2;
 		auto x2 = exponent(x1);
 		auto x3_1 = x2 - 1;
 		auto x3_2 = x2 + 1;
 		auto res = x3_1 / x3_2;
-		return res;
+		return res;*/
 	}
 
 	template<class T>
