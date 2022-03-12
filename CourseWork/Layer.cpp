@@ -1,8 +1,9 @@
 #include "Layer.h"
 
-template<class _Ty>
-Layer< _Ty>::Layer(int size, Array<_Ty>(*func)(const Array<_Ty>& x, Array<_Ty>& der)) :
+Layer::Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der)) :
 	size(size),
 	func(func)
 {
+	this->neurons = Array<double>(size);
+	this->derivative = Array<double>(size);
 }

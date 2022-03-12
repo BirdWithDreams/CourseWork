@@ -2,19 +2,18 @@
 #include "ActivationFunctions.h"
 #include "ActivationFunctions.cpp"
 
-template<class _Ty>
 class Layer
 {
 private:
 	int size;
 
-	Array<_Ty> weights;
-	Array<_Ty> neurons;
-	Array<_Ty> derivative;
+	Array<double> weights;
+	Array<double> neurons;
+	Array<double> derivative;
 
-	Array<_Ty>(*func)(const Array<_Ty>& x, Array<_Ty>& der);
+	Array<double>(*func)(const Array<double>& x, Array<double>& der);
 
 public:
-	Layer(int size, Array<_Ty>(*func)(const Array<_Ty>& x, Array<_Ty>& der));
+	Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der));
 };
 
