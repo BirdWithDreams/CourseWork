@@ -4,12 +4,12 @@ template<class _El>
 bool LinkedList<_El>::push_back(_El& el)
 {
     auto node = new Node<_El>(el);
-    //node->el = el;
     if (cur_size == 0)
         head = tail = node;
 
     else
     {
+        node->prev = tail;
         tail->next = node;
         tail = node;
     }
@@ -42,10 +42,17 @@ _El& LinkedList<_El>::pop_back()
 }
 
 template<class _El>
-Node<_El>& LinkedList<_El>::front()
+Node<_El>& LinkedList<_El>::begin()
 {
     return *head;
 }
+
+template<class _El>
+Node<_El>& LinkedList<_El>::end()
+{
+    return *tail;
+}
+
 
 //bool LinkedList::push_front(Dekanat el)
 //{

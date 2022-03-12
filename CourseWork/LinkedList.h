@@ -20,7 +20,8 @@ public:
 	bool push_back(_El& el);
 	_El& pop_back();
 
-	Node<_El>& front();
+	Node<_El>& begin();
+	Node<_El>& end();
 
 	/*bool push_front(_El& el);
 	_El& pop_front();*/
