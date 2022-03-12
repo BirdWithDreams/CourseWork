@@ -25,6 +25,8 @@ public:
 	Array(int n);
 	Array(int n, int m);
 
+	Array(const Array<_Ty>& other);
+
 	//~Array();
 
 	_Ty* operator[](int i) const;
