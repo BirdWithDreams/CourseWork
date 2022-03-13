@@ -30,13 +30,18 @@ namespace ActFunc
 
 		auto arr = new T * [n];
 		for (int i = 0; i < n; i++)
+		{
 			arr[i] = new T[m];
-
-		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				arr[i][j] = ::tanh(x[i][j]);
+		}
 
-		return Array<T>{arr, n, m};
+		Array<T> res{ arr, n, m };
+		for (int i = 0; i < n; i++)
+			delete[] arr[i];
+		delete[] arr;
+
+		return res;
 	}
 
 	template<class T>
