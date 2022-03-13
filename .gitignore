@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 CourseWork/CourseWork.vcxproj
 CourseWork/CourseWork.vcxproj.filters
+CourseWork/mnist_test.csv
+CourseWork/mnist_train.csv

@@ -271,6 +271,23 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 }
 
 template<class _Ty>
+template<class U>
+Array<_Ty> Array<_Ty>::operator^(U num) const
+{
+	int n = this->shape[0];
+	int m = this->shape[1];
+	_Ty** arr = new _Ty * [n];
+	for (int i = 0; i < n; i++)
+		arr[i] = new _Ty[m];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			arr[i][j] = pow(this->array[i][j], static_cast<_Ty>(num));
+
+	return Array<_Ty>{ arr, n, m };
+}
+
+template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
@@ -468,7 +485,21 @@ void Array<_Ty>::rand_uniform(_Ty min, _Ty max)
 	for (int i = 0; i < shape[0]; i++)
 		for (int j = 0; j < shape[1]; j++)
 			array[i][j] = dist(gen);
-};
+}
+template<class _Ty>
+_Ty Array<_Ty>::sum() const
+{
+	_Ty s = 0;
+	int n = this->shape[0];
+	int m = this->shape[1];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			s += this->array[i][j];
+
+	return s;
+}
+;
 
 template<class _Ty>
 std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
@@ -551,6 +582,12 @@ template<class _Ty>
 Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2)
 {
 	return arr1.dot(arr2);
+}
+
+template<class _Ty>
+_Ty sum(const Array<_Ty>& _arr)
+{
+	return _arr.sum();
 }
 
 template<class _Ty>
