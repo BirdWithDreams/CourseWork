@@ -132,7 +132,8 @@ Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 				arr[i][j] = this->array[i][j] + _arr[i][j];
 		return Array<_Ty>{ arr, n, m };
 	}
-	return Array<_Ty>();
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -216,7 +217,8 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 				arr[i][j] = this->array[i][j] * _arr[i][j];
 		return Array<_Ty>{ arr, n, m };
 	}
-	return Array<_Ty>();
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -235,7 +237,8 @@ Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 				arr[i][j] = this->array[i][j] / _arr[i][j];
 		return Array<_Ty>{ arr, n, m };
 	}
-	return Array<_Ty>();
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -285,7 +288,8 @@ Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
 				this->array[i][j] += _arr[i][j];
 		return *this;
 	}
-	return *this;
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -350,7 +354,8 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 				arr[i][j] = this->array[i][j] - _arr[i][j];
 		return Array<_Ty>{ arr, n, m };
 	}
-	return Array<_Ty>();
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -366,7 +371,8 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 				this->array[i][j] -= _arr[i][j];
 		return *this;
 	}
-	return *this;
+	else
+		throw 1;
 }
 
 template<class _Ty>
@@ -431,27 +437,26 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 
 		return Array<_Ty>{arr, n1, m2};
 	}
-
-	return Array<_Ty>();
+	else
+		throw 1;
 }
 
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::T()
 {
-	static bool isFirst = true;
-	static int n = this->shape[0];
-	static int m = this->shape[1];
-	static auto arr = new Array<_Ty>(m, n);
-
-	if (isFirst)
+	if (!this->_T)
 	{
+		int n = this->shape[0];
+		int m = this->shape[1];
+		this->_T = new Array<_Ty>(m, n);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
-				(*arr)[j][i] = this->array[i][j];
-		isFirst = false;
+				(*_T)[j][i] = this->array[i][j];
+
+		this->_T->_T = this;
 	}
 
-	return *arr;
+	return *_T;
 }
 
 template<class _Ty>

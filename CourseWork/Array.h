@@ -19,6 +19,8 @@ public:
 private:
 	_Ty** array;
 
+	Array<_Ty>* _T = nullptr;
+
 public:
 	Array();
 	Array(_Ty* begin, _Ty* end);
