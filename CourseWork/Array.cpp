@@ -86,20 +86,6 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
 	int n, m;
 	other.get_shape(n, m);
 
-	/*if (this->shape[0] == n && this->shape[1] == m)
-	{
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < m; j++)
-				this->array[i][j] = other[i][j];
-	}*/
-
-	/*if (this->array)
-	{
-		for (int i = 0; i < this->shape[0]; i++)
-			delete[] this->array[i];
-		delete[] this->array;
-	}*/
-
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
 		this->array[i] = new _Ty[m];
@@ -113,17 +99,17 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
 }
 ;
 
-//template<class T>
-//Array<T>::~Array()
-//{
-//	int n = this->shape[0];
-//	for (int i = 0; i < n; i++)
-//		delete[] array[i];
-//
-//	delete[] array;
-//	delete[] shape;
-//}
-//;
+template<class T>
+Array<T>::~Array()
+{
+	int n = this->shape[0];
+	for (int i = 0; i < n; i++)
+		delete[] array[i];
+
+	delete[] this->array;
+	//delete[] this->shape;
+}
+;
 
 template<class _Ty>
 _Ty* Array<_Ty>::operator[](int i) const

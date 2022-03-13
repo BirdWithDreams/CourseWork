@@ -29,7 +29,7 @@ public:
 
 	Array(const Array<_Ty>& other);
 
-	//~Array();
+	~Array();
 
 	_Ty* operator[](int i) const;
 
