@@ -94,6 +94,7 @@ public:
 	void get_shape(int& n, int& m) const;
 
 	void rand_uniform(_Ty min, _Ty max);
+	void randint(_Ty min, _Ty max);
 
 	_Ty sum() const;
 };
@@ -103,6 +104,12 @@ Array<_Ty> rand_uniform(U min, U max, int n);
 
 template <class _Ty = double, class U>
 Array<_Ty> rand_uniform(U min, U max, int n, int m);
+
+template <class _Ty = int, class U>
+Array<_Ty> randint(U min, U max, int n);
+
+template <class _Ty = int, class U>
+Array<_Ty> randint(U min, U max, int n, int m);
 
 template<class _Ty>
 Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2);

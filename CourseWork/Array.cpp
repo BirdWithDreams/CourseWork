@@ -107,7 +107,6 @@ Array<T>::~Array()
 		delete[] array[i];
 
 	delete[] this->array;
-	//delete[] this->shape;
 }
 ;
 
@@ -473,6 +472,16 @@ void Array<_Ty>::rand_uniform(_Ty min, _Ty max)
 			array[i][j] = dist(gen);
 }
 template<class _Ty>
+void Array<_Ty>::randint(_Ty min, _Ty max)
+{
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dist(min, max);
+	for (int i = 0; i < shape[0]; i++)
+		for (int j = 0; j < shape[1]; j++)
+			array[i][j] = dist(gen);
+}
+template<class _Ty>
 _Ty Array<_Ty>::sum() const
 {
 	_Ty s = 0;
@@ -561,6 +570,22 @@ Array<_Ty> rand_uniform(U min, U max, int n, int m)
 {
 	Array<_Ty> array{ n, m };
 	array.rand_uniform(static_cast<_Ty>(min), static_cast<_Ty>(max));
+	return array;
+}
+
+template<class _Ty, class U>
+Array<_Ty> randint(U min, U max, int n)
+{
+	Array<_Ty> array{ n };
+	array.randint(static_cast<_Ty>(min), static_cast<_Ty>(max));
+	return array;
+}
+
+template<class _Ty, class U>
+Array<_Ty> randint(U min, U max, int n, int m)
+{
+	Array<_Ty> array{ n, m };
+	array.randint(static_cast<_Ty>(min), static_cast<_Ty>(max));
 	return array;
 }
 
