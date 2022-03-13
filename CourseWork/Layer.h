@@ -24,5 +24,6 @@ public:
 	int get_size();
 
 	Array<double> activation(const Array<double>& input);
+	Array<double> back_propagation(const Array<double>& delta);
 };
 

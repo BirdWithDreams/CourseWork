@@ -33,7 +33,7 @@ void Perceptron::init()
 {
 	if (this->layers.size())
 	{
-		auto layer = &layers.front();
+		auto layer = &layers.begin();
 		int n, m;
 		data.get_shape(n, this->first_layer_size);
 		m = this->first_layer_size;
@@ -47,12 +47,20 @@ void Perceptron::init()
 
 void Perceptron::start()
 {
-	for (int i = 0; i < this->quantity; i++)
+	for (int _ = 0; _ < this->quantity; _++)
 	{
-		auto input = Array<double>{ this->data[i], this->first_layer_size };
-		for (auto layer = &this->layers.front(); layer != nullptr; layer = layer->next)
+		for (int i = 0; i < this->data.shape[0]; i++)
 		{
-			input = layer->el.activation(input);
+			//std::cout << std::endl;
+			auto output = Array<double>{ this->data[i], this->data.shape[1] };
+			for (auto layer = &this->layers.begin(); layer != nullptr; layer = layer->next)
+				output = layer->el.activation(output);
+
+			auto delta = output - Array<double>{ this->labels[i], this->labels.shape[1] };
+			std::cout<< delta;
+			for (auto layer = &this->layers.end(); layer != nullptr; layer = layer->prev)
+				delta = layer->el.back_propagation(delta);
+
 		}
 	}
 }

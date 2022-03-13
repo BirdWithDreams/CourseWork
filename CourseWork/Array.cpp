@@ -48,7 +48,7 @@ Array<_Ty>::Array(_Ty** arr, int n, int m)
 
 	shape[0] = n;
 	shape[1] = m;
-};
+}
 
 template<class _Ty>
 Array<_Ty>::Array(int n)
@@ -79,7 +79,7 @@ Array<_Ty>::Array(int n, int m)
 }
 
 template<class _Ty>
-Array<_Ty>::Array(const Array<_Ty>& other)
+Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
 {
 	if (this == &other) return;
 
@@ -99,7 +99,6 @@ Array<_Ty>::Array(const Array<_Ty>& other)
 			delete[] this->array[i];
 		delete[] this->array;
 	}*/
-	this->array = nullptr;
 
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
