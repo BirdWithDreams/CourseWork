@@ -49,6 +49,7 @@ void Perceptron::start()
 {
 	for (int _ = 0; _ < this->quantity; _++)
 	{
+		double error = 0;
 		for (int i = 0; i < this->data.shape[0]; i++)
 		{
 			//std::cout << std::endl;
@@ -57,10 +58,15 @@ void Perceptron::start()
 				output = layer->el.activation(output);
 
 			auto delta = output - Array<double>{ this->labels[i], this->labels.shape[1] };
-			std::cout<< delta;
+			error += sqrt(sum(delta ^ 2) / delta.shape[1]);
 			for (auto layer = &this->layers.end(); layer != nullptr; layer = layer->prev)
 				delta = layer->el.back_propagation(delta);
 
+			if (i % 50 == 0)
+			{
+				std::cout << _ << '.' << i / 50 << ": " << error / 50 << '\n';
+				error = 0;
+			}
 		}
 	}
 }

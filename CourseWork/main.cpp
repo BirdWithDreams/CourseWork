@@ -4,6 +4,8 @@
 
 const int N = 1000;
 
+int& add(int& a, int& b);
+
 int main()
 {
 	double** _data1 = new double* [N];
@@ -39,15 +41,28 @@ int main()
 	in.close();
 
 	data = data / 255;
+	std::cout << std::flush;
 
 	Perceptron perc{"Test", 0.1, 101, data, answ};
-	perc.addLayer(256, ActFunc::tanh);
+	perc.addLayer(256, ActFunc::ReLU);
 	perc.addLayer(10, ActFunc::sigmoid);
 
 	perc.init();
 
 	perc.start();
 
+	/*int a = 6, b = 8;
+	int& d = add(a, b);
+	std::cout << &d << '\n';
+	std::cout << d;*/
+	
 	return 0;
 
+}
+
+int& add(int& a, int& b)
+{
+	int c = a + b;
+	std::cout << &c << '\n';
+	return c;
 }

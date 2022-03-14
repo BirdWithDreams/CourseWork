@@ -94,7 +94,46 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
 	this->shape[0] = n;
 	this->shape[1] = m;
 }
+template<class _Ty>
+Array<_Ty>::Array(Array<_Ty>&& other) noexcept
+{
+	this->shape[0] = other.shape[0];
+	this->shape[1] = other.shape[1];
+	this->array = other.array;
+	this->_T = other._T;
+
+	other.shape[0] = 0;
+	other.shape[1] = 0;
+	other.array = nullptr;
+	other._T = nullptr;
+}
 ;
+
+template<class _Ty>
+Array<_Ty>& Array<_Ty>::operator=(Array<_Ty>&& other) noexcept
+{
+	static int count = 0;
+	count++;
+	std::cout << count;
+	if (this == &other) return *this;
+	if (this->array)
+	{
+		for (int i = 0; i < this->shape[0]; i++)
+			delete[] this->array[i];
+		delete[] this->array;
+	}
+	this->shape[0] = other.shape[0];
+	this->shape[1] = other.shape[1];
+	this->array = other.array;
+	this->_T = other._T;
+
+	other.shape[0] = 0;
+	other.shape[1] = 0;
+	other.array = nullptr;
+	other._T = nullptr;
+
+	return *this;
+}
 
 template<class _Ty>
 Array<_Ty>::~Array()
@@ -434,6 +473,9 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 {
+	static int count = 0;
+	count++;
+	std::cout << count;
 	if (this == &other) return *this;
 
 	int n, m;

@@ -30,6 +30,10 @@ public:
 	Array(int n, int m);
 
 	Array(const Array<_Ty>& other);
+	Array<_Ty>& operator=(const Array<_Ty>& other);
+
+	Array(Array<_Ty>&& other) noexcept;
+	Array<_Ty>& operator=(Array<_Ty>&& other) noexcept;
 
 	~Array();
 
@@ -83,7 +87,6 @@ public:
 	template<class _Ty, class U>
 	friend Array<_Ty> operator/(U num, const Array<_Ty>& _arr);
 
-	Array<_Ty>& operator=(const Array<_Ty>& other);
 
 	template<class U>
 	Array<_Ty> operator^(U num) const;

@@ -40,7 +40,7 @@ Array<double> Layer::back_propagation(const Array<double>& delta)
 {
 	auto _delta = this->derivative * delta;
 	auto _del = _delta.dot(this->weights.T());
-	this->weights -= 0.1 * this->input.T().dot(_delta);
+	this->weights -= 0.01 * this->input.T().dot(_delta);
 
 	return _del;
 
