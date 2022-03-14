@@ -21,4 +21,10 @@ namespace ActFunc
 
 	template<class T>
 	Array<T> ReLU(const Array<T>& x, Array<T>& der);
+
+	template<class T>
+	Array<T> softmax(const Array<T>& x);
+
+	template<class T>
+	Array<T> softmax(const Array<T>& x, Array<T>& der);
 }

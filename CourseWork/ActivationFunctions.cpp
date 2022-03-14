@@ -85,4 +85,23 @@ namespace ActFunc
 		der = _der;
 		return res;
 	}
+
+	template<class T>
+	Array<T> softmax(const Array<T>& x)
+	{
+		auto res = exponent(x);
+		return res/sum(res);
+	}
+
+	template<class T>
+	Array<T> softmax(const Array<T>& x, Array<T>& der)
+	{
+		auto res = softmax(x);
+		der = Array<T>{ x.shape[0], x.shape[1] };
+		for (int i = 0; i < x.shape[0]; i++)
+			for (int j = 0; j < x.shape[1]; j++)
+				der[i][j] = 1 / x.shape[1];
+
+		return res;
+	}
 }
