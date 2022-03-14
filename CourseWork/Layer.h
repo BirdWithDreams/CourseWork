@@ -6,6 +6,9 @@ class Layer
 {
 	friend std::ostream& operator<<(std::ostream& os, const Layer& layer);
 
+public:
+	Layer* next = nullptr;
+
 private:
 	int size;
 

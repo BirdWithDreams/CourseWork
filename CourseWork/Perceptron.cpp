@@ -26,6 +26,9 @@ Perceptron::Perceptron(const char* name, double learning_speed, long long quanti
 void Perceptron::addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der))
 {
 	auto layer = new Layer {size, activation_function};
+	if (this->layers.size())
+		this->layers.end().el.next = layer;
+
 	this->layers.push_back(*layer);
 }
 
@@ -52,19 +55,18 @@ void Perceptron::start()
 		double error = 0;
 		for (int i = 0; i < this->data.shape[0]; i++)
 		{
-			//std::cout << std::endl;
-			auto output = Array<double>{ this->data[i], this->data.shape[1] };
-			for (auto layer = &this->layers.begin(); layer != nullptr; layer = layer->next)
-				output = layer->el.activation(output);
+			auto input = Array<double>{ this->data[i], this->data.shape[1] };
+			auto output = layers.begin().el.activation(input);
 
 			auto delta = output - Array<double>{ this->labels[i], this->labels.shape[1] };
 			error += sqrt(sum(delta ^ 2) / delta.shape[1]);
-			for (auto layer = &this->layers.end(); layer != nullptr; layer = layer->prev)
-				delta = layer->el.back_propagation(delta);
 
-			if (i % 50 == 0)
+			this->layers.begin().el.back_propagation(delta);
+
+			if (i % 100 == 0)
 			{
-				std::cout << _ << '.' << i / 50 << ": " << error / 50 << '\n';
+				std::cout << _ << '.' << i / 100 << ": " << error / 100 << '\n';
+				std::cout << "Output: " << output << '\n';
 				error = 0;
 			}
 		}

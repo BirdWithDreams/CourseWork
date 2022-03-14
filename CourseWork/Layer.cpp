@@ -21,7 +21,7 @@ Layer::Layer(const Layer& other) :
 
 void Layer::set_weights(int _size)
 {
-	weights = rand_uniform(-0.1, 0.1, _size, this->size);
+	weights = rand_uniform(-0.01, 0.01, _size, this->size);
 }
 
 int Layer::get_size()
@@ -33,21 +33,30 @@ Array<double> Layer::activation(const Array<double>& input)
 {
 	this->input = input;
 	auto _n = dot(this->input, this->weights);
-	_n += this->displacement_vector;
+	//_n += this->displacement_vector;
 
 	this->neurons = this->func(_n, this->derivative);
-	return this->neurons;
+
+	if (this->next)
+		return this->next->activation(this->neurons);
+
+	else
+		return this->neurons;
 }
 
 Array<double> Layer::back_propagation(const Array<double>& delta)
 {
-	auto _delta = this->derivative * delta;
+	Array<double> _delta;
+	if (this->next)
+		_delta = this->derivative * this->next->back_propagation(delta);
+	else
+		_delta = this->derivative * delta;
+
 	auto _del = _delta.dot(this->weights.T());
-	this->weights -= 0.01 * this->input.T().dot(_delta);
-	this->displacement_vector -= 0.01 * _delta;
+	this->weights -= 0.1 * this->input.T().dot(_delta);
+	//this->displacement_vector -= 0.1 * _delta;
 
 	return _del;
-
 }
 
 std::ostream& operator<<(std::ostream& os, const Layer& layer)

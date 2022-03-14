@@ -8,7 +8,7 @@ int& add(int& a, int& b);
 
 int main()
 {
-	double** _data1 = new double* [N];
+	/*double** _data1 = new double* [N];
 	for (size_t i = 0; i < N; i++)
 		_data1[i] = new double[28*28];
 
@@ -42,17 +42,15 @@ int main()
 	std::cout << std::flush;
 
 	Perceptron perc{"Test", 0.1, 1000, data, answ};
-	perc.addLayer(256, ActFunc::sigmoid);
-	perc.addLayer(10, ActFunc::sigmoid);
+	perc.addLayer(200, ActFunc::tanh);
+	perc.addLayer(10, ActFunc::softmax);
 
 	perc.init();
 
-	perc.start();
+	perc.start();*/
 
-	/*int a = 6, b = 8;
-	int& d = add(a, b);
-	std::cout << &d << '\n';
-	std::cout << d;*/
+	auto arr = rand_uniform(-0.1, 0.1, 5);
+	std::cout << arr;
 	
 	return 0;
 
