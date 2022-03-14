@@ -112,9 +112,6 @@ Array<_Ty>::Array(Array<_Ty>&& other) noexcept
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator=(Array<_Ty>&& other) noexcept
 {
-	static int count = 0;
-	count++;
-	std::cout << count;
 	if (this == &other) return *this;
 	if (this->array)
 	{
@@ -473,9 +470,6 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 {
-	static int count = 0;
-	count++;
-	std::cout << count;
 	if (this == &other) return *this;
 
 	int n, m;

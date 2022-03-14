@@ -2,7 +2,7 @@
 #include <fstream>
 #include "Perceptron.h"
 
-const int N = 1000;
+const int N = 3000;
 
 int& add(int& a, int& b);
 
@@ -17,34 +17,32 @@ int main()
 		_answ[i] = new double[10];
 
 	std::ifstream in{ "mnist_train.csv" };
+	Array<double> data{ N, 28*28 };
+	Array<double> answ{ N, 10 };
 	
 	for (int i = 0; i < N; i++)
 	{
 		int n;
 		char delim;
 		in >> n;
-		for (int j = 0; j < 10; j++)
-			_answ[i][j] = 0;
-		_answ[i][n] = 1;
+		answ[i][n] = 1;
 
 		for (int j = 0; j < 28*28; j++)
 		{
 			in >> delim;
-			in >> _data1[i][j];
+			in >> data[i][j];
 		}
 	}
 
 
 
-	Array<double> data{ _data1, N, 28*28 };
-	Array<double> answ{ _answ, N, 10 };
 	in.close();
 
 	data = data / 255;
 	std::cout << std::flush;
 
-	Perceptron perc{"Test", 0.1, 101, data, answ};
-	perc.addLayer(256, ActFunc::ReLU);
+	Perceptron perc{"Test", 0.1, 1000, data, answ};
+	perc.addLayer(256, ActFunc::sigmoid);
 	perc.addLayer(10, ActFunc::sigmoid);
 
 	perc.init();

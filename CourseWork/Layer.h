@@ -10,6 +10,7 @@ private:
 	int size;
 
 	Array<double> weights;
+	Array<double> displacement_vector;
 	Array<double> neurons;
 	Array<double> derivative;
 	Array<double> input;
