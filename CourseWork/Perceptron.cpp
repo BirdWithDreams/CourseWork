@@ -1,6 +1,6 @@
 #include "Perceptron.h"
 
-Perceptron::Perceptron() : 
+Perceptron::Perceptron() :
 	name(""), quantity(0), a(1), data(Array<double>{}), labels(Array<double>{}), first_layer_size(0)
 {
 }
@@ -25,7 +25,7 @@ Perceptron::Perceptron(const char* name, double learning_speed, long long quanti
 
 void Perceptron::addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der))
 {
-	auto layer = new Layer {size, activation_function};
+	auto layer = new Layer{ size, activation_function };
 	if (this->layers.size())
 		this->layers.end().el.next = layer;
 

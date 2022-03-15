@@ -9,7 +9,7 @@ Layer::Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double
 	this->displacement_vector = rand_uniform(-0.1, 0.1, this->size);
 }
 
-Layer::Layer(const Layer& other) : 
+Layer::Layer(const Layer& other) :
 	size(other.size),
 	neurons(other.neurons),
 	derivative(other.derivative),
@@ -33,7 +33,6 @@ Array<double> Layer::activation(const Array<double>& input)
 {
 	this->input = input;
 	auto _n = this->displacement_vector + dot(this->input, this->weights);
-	//_n += this->displacement_vector;
 
 	this->neurons = this->func(_n, this->derivative);
 

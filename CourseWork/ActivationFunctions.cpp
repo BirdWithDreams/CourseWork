@@ -82,7 +82,7 @@ namespace ActFunc
 	Array<T> softmax(const Array<T>& x)
 	{
 		auto res = exponent(x);
-		return res/sum(res);
+		return res / sum(res);
 	}
 
 	template<class T>

@@ -4,7 +4,6 @@ template<class _Ty>
 Array<_Ty>::Array() : array(nullptr)
 {
 	shape[0] = shape[1] = 0;
-	//dims = 0;
 };
 
 template<class _Ty>
@@ -64,14 +63,14 @@ Array<_Ty>::Array(int n, int m)
 {
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
-		array[i] = new _Ty[m];	
+		array[i] = new _Ty[m];
 
 	shape[0] = n;
 	shape[1] = m;
 }
 
 template<class _Ty>
-Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
+Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
 {
 	int n, m;
 	other.get_shape(n, m);
@@ -82,7 +81,7 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{nullptr}
 		this->array[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = other[i][j];
-	}		
+	}
 
 	this->shape[0] = n;
 	this->shape[1] = m;
@@ -167,7 +166,7 @@ Array<_Ty> Array<_Ty>::operator+(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -182,7 +181,7 @@ Array<_Ty> operator+(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -211,7 +210,7 @@ Array<_Ty> Array<_Ty>::operator*(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -227,7 +226,7 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		
+
 		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
@@ -246,7 +245,7 @@ Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		
+
 		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
@@ -264,11 +263,11 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = this->array[i][j] / static_cast<_Ty>(num);	
+			res[i][j] = this->array[i][j] / static_cast<_Ty>(num);
 
 	return res;
 }
@@ -279,7 +278,7 @@ Array<_Ty> Array<_Ty>::operator^(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -338,7 +337,7 @@ Array<_Ty> Array<_Ty>::operator-(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -354,7 +353,7 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		
+
 		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
@@ -390,7 +389,7 @@ Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 
 	int n, m;
 	other.get_shape(n, m);
-	
+
 	if (this->shape[0] == n && this->shape[1] == m)
 	{
 		for (int i = 0; i < n; i++)
@@ -523,7 +522,7 @@ Array<_Ty> operator-(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -537,7 +536,7 @@ Array<_Ty> operator*(U num, const Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -551,7 +550,7 @@ Array<_Ty> operator/(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
@@ -651,7 +650,7 @@ Array<_Ty> exponent(const Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	
+
 	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
