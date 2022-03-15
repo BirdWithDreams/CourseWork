@@ -104,6 +104,26 @@ public:
 	_Ty sum() const;
 };
 
+template<class _Ty>
+Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2);
+
+template<class _Ty>
+_Ty sum(const Array<_Ty>& _arr);
+
+
+template<class _Ty>
+Array<_Ty> zeros(int n);
+
+template<class _Ty>
+Array<_Ty> zeros(int n, int m);
+
+template<class _Ty>
+Array<_Ty> ones(int n);
+
+template<class _Ty>
+Array<_Ty> ones(int n, int m);
+
+
 template <class _Ty = double, class U>
 Array<_Ty> rand_uniform(U min, U max, int n);
 
@@ -115,9 +135,3 @@ Array<_Ty> randint(U min, U max, int n);
 
 template <class _Ty = int, class U>
 Array<_Ty> randint(U min, U max, int n, int m);
-
-template<class _Ty>
-Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2);
-
-template<class _Ty>
-_Ty sum(const Array<_Ty>& _arr);

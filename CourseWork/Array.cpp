@@ -55,9 +55,6 @@ Array<_Ty>::Array(int n)
 	array = new _Ty * [1];
 	array[0] = new _Ty[n];
 
-	for (int i = 0; i < n; i++)
-		array[0][i] = 0;
-
 	shape[0] = 1;
 	shape[1] = n;
 };
@@ -67,11 +64,7 @@ Array<_Ty>::Array(int n, int m)
 {
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
-	{
-		array[i] = new _Ty[m];
-		for (int j = 0; j < m; j++)
-			this->array[i][j] = 0;
-	}		
+		array[i] = new _Ty[m];	
 
 	shape[0] = n;
 	shape[1] = m;
@@ -156,18 +149,11 @@ Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		_Ty** arr = new _Ty * [n];
-		for (int i = 0; i < n; i++)
-		{
-			arr[i] = new _Ty[m];
-			for (int j = 0; j < m; j++)
-				arr[i][j] = this->array[i][j] + _arr[i][j];
-		}			
 
-		Array<_Ty> res{ arr, n, m };
+		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
-			delete[] arr[i];
-		delete[] arr;
+			for (int j = 0; j < m; j++)
+				res[i][j] = this->array[i][j] + _arr[i][j];
 
 		return res;
 	}
@@ -181,18 +167,11 @@ Array<_Ty> Array<_Ty>::operator+(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] + static_cast<_Ty>(num);
-	}		
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = this->array[i][j] + static_cast<_Ty>(num);
 
 	return res;
 }
@@ -203,18 +182,11 @@ Array<_Ty> operator+(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] + static_cast<_Ty>(num);
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = _arr[i][j] + static_cast<_Ty>(num);
 
 	return res;
 }
@@ -239,18 +211,11 @@ Array<_Ty> Array<_Ty>::operator*(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] * static_cast<_Ty>(num);
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = this->array[i][j] * static_cast<_Ty>(num);
 
 	return res;
 }
@@ -262,18 +227,11 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		_Ty** arr = new _Ty * [n];
+		
+		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
-		{
-			arr[i] = new _Ty[m];
 			for (int j = 0; j < m; j++)
-				arr[i][j] = this->array[i][j] * _arr[i][j];
-		}
-
-		Array<_Ty> res{ arr, n, m };
-		for (int i = 0; i < n; i++)
-			delete[] arr[i];
-		delete[] arr;
+				res[i][j] = this->array[i][j] * _arr[i][j];
 
 		return res;
 	}
@@ -288,18 +246,11 @@ Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		_Ty** arr = new _Ty * [n];
+		
+		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
-		{
-			arr[i] = new _Ty[m];
 			for (int j = 0; j < m; j++)
-				arr[i][j] = this->array[i][j] / _arr[i][j];
-		}
-
-		Array<_Ty> res{ arr, n, m };
-		for (int i = 0; i < n; i++)
-			delete[] arr[i];
-		delete[] arr;
+				res[i][j] = this->array[i][j] / _arr[i][j];
 
 		return res;
 	}
@@ -313,18 +264,11 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] / static_cast<_Ty>(num);
-	}		
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = this->array[i][j] / static_cast<_Ty>(num);	
 
 	return res;
 }
@@ -335,18 +279,11 @@ Array<_Ty> Array<_Ty>::operator^(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = pow(this->array[i][j], static_cast<_Ty>(num));
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = pow(this->array[i][j], static_cast<_Ty>(num));
 
 	return res;
 }
@@ -373,18 +310,11 @@ Array<_Ty> Array<_Ty>::operator-() const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
-	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
-		for (int j = 0; j < m; j++)
-			arr[i][j] = -this->array[i][j];
-	}
 
-	Array<_Ty> res{ arr, n, m };
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+		for (int j = 0; j < m; j++)
+			res[i][j] = -this->array[i][j];
 
 	return res;
 }
@@ -408,18 +338,11 @@ Array<_Ty> Array<_Ty>::operator-(U num) const
 {
 	int n = this->shape[0];
 	int m = this->shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = this->array[i][j] - static_cast<_Ty>(num);
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = this->array[i][j] - static_cast<_Ty>(num);
 
 	return res;
 }
@@ -431,18 +354,11 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
-		_Ty** arr = new _Ty * [n];
+		
+		Array<_Ty> res(n, m);
 		for (int i = 0; i < n; i++)
-		{
-			arr[i] = new _Ty[m];
 			for (int j = 0; j < m; j++)
-				arr[i][j] = this->array[i][j] - _arr[i][j];
-		}
-
-		Array<_Ty> res{ arr, n, m };
-		for (int i = 0; i < n; i++)
-			delete[] arr[i];
-		delete[] arr;
+				res[i][j] = this->array[i][j] - _arr[i][j];
 
 		return res;
 	}
@@ -513,23 +429,15 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 
 	if (m1 == n2)
 	{
-		_Ty** arr = new _Ty * [n1];
+		Array<_Ty> res(n1, m2);
 		for (int i = 0; i < n1; i++)
-		{
-			arr[i] = new _Ty[m2];
 			for (int j = 0; j < m2; j++)
 			{
 				_Ty sum = 0;
 				for (int k = 0; k < m1; k++)
 					sum += this->array[i][k] * _arr[k][j];
-				arr[i][j] = sum;
+				res[i][j] = sum;
 			}
-		}
-
-		Array<_Ty> res{ arr, n1, m2 };
-		for (int i = 0; i < n1; i++)
-			delete[] arr[i];
-		delete[] arr;
 
 		return res;
 	}
@@ -615,18 +523,11 @@ Array<_Ty> operator-(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = static_cast<_Ty>(num) - _arr[i][j];
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = static_cast<_Ty>(num) - _arr[i][j];
 
 	return res;
 }
@@ -636,18 +537,11 @@ Array<_Ty> operator*(U num, const Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = _arr[i][j] * static_cast<_Ty>(num);
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = _arr[i][j] * static_cast<_Ty>(num);
 
 	return res;
 }
@@ -657,18 +551,11 @@ Array<_Ty> operator/(U num, Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = static_cast<_Ty>(num) / _arr[i][j];
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = static_cast<_Ty>(num) / _arr[i][j];
 
 	return res;
 }
@@ -718,22 +605,57 @@ _Ty sum(const Array<_Ty>& _arr)
 }
 
 template<class _Ty>
+Array<_Ty> zeros(int n)
+{
+	Array<_Ty> res{ n };
+	for (int i = 0; i < n; i++)
+		res[0][i] = 0;
+
+	return res;
+}
+
+template<class _Ty>
+Array<_Ty> zeros(int n, int m)
+{
+	Array<_Ty> res(n, m);
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			res[i][j] = 0;
+
+	return res;
+}
+
+template<class _Ty>
+Array<_Ty> ones(int n)
+{
+	Array<_Ty> res{ n };
+	for (int i = 0; i < n; i++)
+		res[0][i] = 1;
+
+	return res;
+}
+
+template<class _Ty>
+Array<_Ty> ones(int n, int m)
+{
+	Array<_Ty> res(n, m);
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			res[i][j] = 1;
+
+	return res;
+}
+
+template<class _Ty>
 Array<_Ty> exponent(const Array<_Ty>& _arr)
 {
 	int n = _arr.shape[0];
 	int m = _arr.shape[1];
-	_Ty** arr = new _Ty * [n];
+	
+	Array<_Ty> res(n, m);
 	for (int i = 0; i < n; i++)
-	{
-		arr[i] = new _Ty[m];
 		for (int j = 0; j < m; j++)
-			arr[i][j] = exp(_arr.array[i][j]);
-	}
-
-	Array<_Ty> res{ arr, n, m };
-	for (int i = 0; i < n; i++)
-		delete[] arr[i];
-	delete[] arr;
+			res[i][j] = exp(_arr.array[i][j]);
 
 	return res;
 }

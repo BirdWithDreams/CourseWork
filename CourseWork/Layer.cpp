@@ -32,7 +32,7 @@ int Layer::get_size()
 Array<double> Layer::activation(const Array<double>& input)
 {
 	this->input = input;
-	auto _n = dot(this->input, this->weights);
+	auto _n = this->displacement_vector + dot(this->input, this->weights);
 	//_n += this->displacement_vector;
 
 	this->neurons = this->func(_n, this->derivative);
@@ -54,7 +54,7 @@ Array<double> Layer::back_propagation(const Array<double>& delta)
 
 	auto _del = _delta.dot(this->weights.T());
 	this->weights -= 0.1 * this->input.T().dot(_delta);
-	//this->displacement_vector -= 0.1 * _delta;
+	this->displacement_vector -= 0.1 * _delta;
 
 	return _del;
 }

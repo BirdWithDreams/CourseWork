@@ -28,18 +28,10 @@ namespace ActFunc
 			n = x.shape[0],
 			m = x.shape[1];
 
-		auto arr = new T * [n];
+		Array<T> res(n, m);
 		for (int i = 0; i < n; i++)
-		{
-			arr[i] = new T[m];
 			for (int j = 0; j < m; j++)
-				arr[i][j] = ::tanh(x[i][j]);
-		}
-
-		Array<T> res{ arr, n, m };
-		for (int i = 0; i < n; i++)
-			delete[] arr[i];
-		delete[] arr;
+				res[i][j] = ::tanh(x[i][j]);
 
 		return res;
 	}
@@ -58,7 +50,7 @@ namespace ActFunc
 	{
 		int n, m;
 		x.get_shape(n, m);
-		Array<T> res{ n, m };
+		auto res = zeros<double>(n, m);
 
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
@@ -72,8 +64,8 @@ namespace ActFunc
 	{
 		int n, m;
 		x.get_shape(n, m);
-		Array<T> res{ n, m };
-		Array<T> _der{ n, m };
+		auto res = zeros<double>(n, m);
+		auto _der = zeros<double>(n, m);
 
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
@@ -97,10 +89,12 @@ namespace ActFunc
 	Array<T> softmax(const Array<T>& x, Array<T>& der)
 	{
 		auto res = softmax(x);
-		der = Array<T>{ x.shape[0], x.shape[1] };
+		Array<T> _der{ x.shape[0], x.shape[1] };
 		for (int i = 0; i < x.shape[0]; i++)
 			for (int j = 0; j < x.shape[1]; j++)
-				der[i][j] = 1 / x.shape[1];
+				_der[i][j] = 1.0 / x.shape[1];
+
+		der = _der;
 
 		return res;
 	}
