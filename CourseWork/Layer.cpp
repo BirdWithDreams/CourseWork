@@ -1,8 +1,9 @@
 #include "Layer.h"
 
-Layer::Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der)) :
+Layer::Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der), double learn_speed) :
 	size(size),
-	func(func)
+	func(func),
+	a(learn_speed)
 {
 	this->neurons = Array<double>(size);
 	this->derivative = Array<double>(size);
@@ -81,8 +82,8 @@ Array<double> Layer::back_propagation(const Array<double>& delta)
 		_delta = this->derivative * delta;
 
 	auto _del = _delta.dot(this->weights.T());
-	this->weights -= 0.1 * this->input.T().dot(_delta);
-	this->displacement_vector -= 0.1 * _delta;
+	this->weights -= this->a * this->input.T().dot(_delta);
+	this->displacement_vector -= this->a * _delta;
 
 	return _del;
 }

@@ -13,6 +13,7 @@ public:
 
 private:
 	int size;
+	double a;
 
 	Array<double> weights;
 	Array<double> displacement_vector;
@@ -23,7 +24,7 @@ private:
 	Array<double>(*func)(const Array<double>& x, Array<double>& der);
 
 public:
-	Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der));
+	Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der), double learn_speed);
 	Layer(const Layer& other);
 
 	void set_weights(int _size);
