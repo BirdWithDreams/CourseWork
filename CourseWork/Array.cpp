@@ -33,7 +33,8 @@ Array<_Ty>::Array(_Ty* arr, int n)
 
 	shape[0] = 1;
 	shape[1] = n;
-};
+}
+;
 
 template<class _Ty>
 Array<_Ty>::Array(_Ty** arr, int n, int m)
@@ -466,24 +467,27 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::T()
 {
+	int n = this->shape[0];
+	int m = this->shape[1];
+
 	if (!this->_T)
 	{
-		int n = this->shape[0];
-		int m = this->shape[1];
 		this->_T = new Array<_Ty>(m, n);
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < m; j++)
-				(*_T)[j][i] = this->array[i][j];
 
 		this->_T->_T = this;
 	}
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			(*_T)[j][i] = this->array[i][j];
 
 	return *_T;
 }
+;
 
 template<class _Ty>
 void Array<_Ty>::get_shape(int& n, int& m) const
