@@ -3,12 +3,16 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <fstream>
 
 template <class _Ty>
 class Array
 {
 	template<class _Ty>
 	friend std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array);
+
+	template<class _Ty>
+	friend std::ofstream& operator<<(std::ofstream& ofs, const Array<_Ty>& array);
 
 	template<class _Ty>
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);

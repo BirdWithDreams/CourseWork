@@ -58,10 +58,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
-    <Text Include="output.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="mnist_test.csv">
       <Filter>Файлы ресурсов</Filter>
     </None>

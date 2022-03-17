@@ -21,12 +21,41 @@ Layer::Layer(const Layer& other) :
 
 void Layer::set_weights(int _size)
 {
-	weights = rand_uniform(-0.01, 0.01, _size, this->size);
+	weights = rand_uniform(-0.1, 0.1, _size, this->size);
 }
 
 int Layer::get_size()
 {
 	return this->size;
+}
+
+void Layer::save(std::string& name)
+{
+	std::ofstream out{ name + ".txt"};
+	for (int i = 0; i < this->weights.shape[0]; i++)
+	{
+		for (int j = 0; j < weights.shape[1]; j++)
+			out << this->weights[i][j] << ' ';
+		out << '\n';
+	}
+	for (int i = 0; i < this->displacement_vector.shape[1]; i++)
+		out << this->displacement_vector[0][i] << ' ';
+	out.close();
+
+}
+
+void Layer::save(std::string&& name)
+{
+	std::ofstream out{ name + ".txt" };
+	for (int i = 0; i < this->weights.shape[0]; i++)
+	{
+		for (int j = 0; j < weights.shape[1]; j++)
+			out << this->weights[i][j] << ' ';
+		out << '\n';
+	}
+	for (int i = 0; i < this->displacement_vector.shape[1]; i++)
+		out << this->displacement_vector[0][i] << ' ';
+	out.close();
 }
 
 Array<double> Layer::activation(const Array<double>& input)

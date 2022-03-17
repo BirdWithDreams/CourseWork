@@ -156,10 +156,6 @@
     <ClInclude Include="Perceptron.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
-    <Text Include="output.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="mnist_test.csv" />
     <None Include="mnist_train.csv" />
   </ItemGroup>

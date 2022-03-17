@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+
 #include "ActivationFunctions.h"
 #include "ActivationFunctions.cpp"
 
@@ -26,6 +28,8 @@ public:
 
 	void set_weights(int _size);
 	int get_size();
+	void save(std::string& name);
+	void save(std::string&& name);
 
 	Array<double> activation(const Array<double>& input);
 	Array<double> back_propagation(const Array<double>& delta);

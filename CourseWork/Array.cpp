@@ -4,7 +4,8 @@ template<class _Ty>
 Array<_Ty>::Array() : array(nullptr)
 {
 	shape[0] = shape[1] = 0;
-};
+}
+;
 
 template<class _Ty>
 Array<_Ty>::Array(_Ty* begin, _Ty* end)
@@ -18,7 +19,8 @@ Array<_Ty>::Array(_Ty* begin, _Ty* end)
 
 	shape[0] = 1;
 	shape[1] = n;
-};
+}
+;
 
 template<class _Ty>
 Array<_Ty>::Array(_Ty* arr, int n)
@@ -47,6 +49,7 @@ Array<_Ty>::Array(_Ty** arr, int n, int m)
 	shape[0] = n;
 	shape[1] = m;
 }
+;
 
 template<class _Ty>
 Array<_Ty>::Array(int n)
@@ -56,7 +59,8 @@ Array<_Ty>::Array(int n)
 
 	shape[0] = 1;
 	shape[1] = n;
-};
+}
+;
 
 template<class _Ty>
 Array<_Ty>::Array(int n, int m)
@@ -68,6 +72,7 @@ Array<_Ty>::Array(int n, int m)
 	shape[0] = n;
 	shape[1] = m;
 }
+;
 
 template<class _Ty>
 Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
@@ -86,6 +91,8 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
 	this->shape[0] = n;
 	this->shape[1] = m;
 }
+;
+
 template<class _Ty>
 Array<_Ty>::Array(Array<_Ty>&& other) noexcept
 {
@@ -123,6 +130,7 @@ Array<_Ty>& Array<_Ty>::operator=(Array<_Ty>&& other) noexcept
 
 	return *this;
 }
+;
 
 template<class _Ty>
 Array<_Ty>::~Array()
@@ -140,6 +148,7 @@ _Ty* Array<_Ty>::operator[](int i) const
 {
 	return array[i];
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
@@ -159,6 +168,7 @@ Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -203,6 +213,7 @@ Array<_Ty>& Array<_Ty>::operator-=(U num)
 			this->array[i][j] -= static_cast<_Ty>(num);
 	return *this;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -218,6 +229,7 @@ Array<_Ty> Array<_Ty>::operator*(U num) const
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
@@ -237,6 +249,7 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
@@ -256,6 +269,7 @@ Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -271,6 +285,7 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 
 	return res;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -286,6 +301,7 @@ Array<_Ty> Array<_Ty>::operator^(U num) const
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
@@ -303,6 +319,7 @@ Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::operator-() const
@@ -317,6 +334,7 @@ Array<_Ty> Array<_Ty>::operator-() const
 
 	return res;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -330,6 +348,7 @@ Array<_Ty>& Array<_Ty>::operator+=(U num)
 			this->array[i][j] += static_cast<_Ty>(num);
 	return *this;
 }
+;
 
 template<class _Ty>
 template<class U>
@@ -345,6 +364,7 @@ Array<_Ty> Array<_Ty>::operator-(U num) const
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
@@ -364,6 +384,7 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
@@ -381,6 +402,7 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 	else
 		throw 1;
 }
+;
 
 template<class _Ty>
 Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
@@ -417,6 +439,7 @@ Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 	this->shape[1] = m;
 	return *this;
 }
+;
 
 template<class _Ty>
 Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
@@ -468,6 +491,7 @@ void Array<_Ty>::get_shape(int& n, int& m) const
 	n = this->shape[0];
 	m = this->shape[1];
 }
+;
 
 template<class _Ty>
 void Array<_Ty>::rand_uniform(_Ty min, _Ty max)
@@ -479,6 +503,8 @@ void Array<_Ty>::rand_uniform(_Ty min, _Ty max)
 		for (int j = 0; j < shape[1]; j++)
 			array[i][j] = dist(gen);
 }
+;
+
 template<class _Ty>
 void Array<_Ty>::randint(_Ty min, _Ty max)
 {
@@ -489,6 +515,8 @@ void Array<_Ty>::randint(_Ty min, _Ty max)
 		for (int j = 0; j < shape[1]; j++)
 			array[i][j] = dist(gen);
 }
+;
+
 template<class _Ty>
 _Ty Array<_Ty>::sum() const
 {
@@ -514,8 +542,24 @@ std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
 			<< std::setw(10) << array[i][j];
 		os << '\n';
 	}
+	os << std::flush;
 	return os;
 }
+;
+
+template<class _Ty>
+std::ofstream& operator<<(std::ofstream& ofs, const Array<_Ty>& array)
+{
+	for (int i = 0; i < array.shape[0]; i++)
+	{
+		for (int j = 0; j < array.shape[1]; j++)
+			ofs << std::setprecision(16) << array[i][j] << ' ';
+		ofs << '\n';
+	}
+
+	return ofs;
+}
+;
 
 template<class _Ty, class U>
 Array<_Ty> operator-(U num, Array<_Ty>& _arr)
@@ -530,6 +574,7 @@ Array<_Ty> operator-(U num, Array<_Ty>& _arr)
 
 	return res;
 }
+;
 
 template<class _Ty, class U>
 Array<_Ty> operator*(U num, const Array<_Ty>& _arr)
@@ -544,6 +589,7 @@ Array<_Ty> operator*(U num, const Array<_Ty>& _arr)
 
 	return res;
 }
+;
 
 template<class _Ty, class U>
 Array<_Ty> operator/(U num, Array<_Ty>& _arr)
@@ -558,6 +604,7 @@ Array<_Ty> operator/(U num, Array<_Ty>& _arr)
 
 	return res;
 }
+;
 
 template<class _Ty = double, class U>
 Array<_Ty> rand_uniform(U min, U max, int n)
@@ -566,6 +613,7 @@ Array<_Ty> rand_uniform(U min, U max, int n)
 	array.rand_uniform(static_cast<_Ty>(min), static_cast<_Ty>(max));
 	return array;
 }
+;
 
 template<class _Ty = double, class U>
 Array<_Ty> rand_uniform(U min, U max, int n, int m)
@@ -574,6 +622,7 @@ Array<_Ty> rand_uniform(U min, U max, int n, int m)
 	array.rand_uniform(static_cast<_Ty>(min), static_cast<_Ty>(max));
 	return array;
 }
+;
 
 template<class _Ty, class U>
 Array<_Ty> randint(U min, U max, int n)
@@ -582,6 +631,7 @@ Array<_Ty> randint(U min, U max, int n)
 	array.randint(static_cast<_Ty>(min), static_cast<_Ty>(max));
 	return array;
 }
+;
 
 template<class _Ty, class U>
 Array<_Ty> randint(U min, U max, int n, int m)
@@ -590,18 +640,21 @@ Array<_Ty> randint(U min, U max, int n, int m)
 	array.randint(static_cast<_Ty>(min), static_cast<_Ty>(max));
 	return array;
 }
+;
 
 template<class _Ty>
 Array<_Ty> dot(const Array<_Ty>& arr1, const Array<_Ty>& arr2)
 {
 	return arr1.dot(arr2);
 }
+;
 
 template<class _Ty>
 _Ty sum(const Array<_Ty>& _arr)
 {
 	return _arr.sum();
 }
+;
 
 template<class _Ty>
 Array<_Ty> zeros(int n)
@@ -612,6 +665,7 @@ Array<_Ty> zeros(int n)
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> zeros(int n, int m)
@@ -623,6 +677,7 @@ Array<_Ty> zeros(int n, int m)
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> ones(int n)
@@ -633,6 +688,7 @@ Array<_Ty> ones(int n)
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> ones(int n, int m)
@@ -644,6 +700,7 @@ Array<_Ty> ones(int n, int m)
 
 	return res;
 }
+;
 
 template<class _Ty>
 Array<_Ty> exponent(const Array<_Ty>& _arr)
@@ -658,3 +715,4 @@ Array<_Ty> exponent(const Array<_Ty>& _arr)
 
 	return res;
 }
+;
