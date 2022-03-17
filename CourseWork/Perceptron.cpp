@@ -5,14 +5,6 @@ Perceptron::Perceptron() :
 {
 }
 
-//Perceptron::Perceptron(std::string& name, double learning_speed, long long quantity) : name(name), a(learning_speed), quantity(quantity), data(Array<double>{}), labels(Array<double>{})
-//{
-//}
-//
-//Perceptron::Perceptron(const char* name, double learning_speed, long long quantity) : name(name), a(learning_speed), quantity(quantity), data(Array<double>{}), labels(Array<double>{})
-//{
-//}
-
 Perceptron::Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels)
 	: name(name), a(learning_speed), quantity(quantity), data(data), labels(labels), first_layer_size(0)
 {
@@ -50,9 +42,9 @@ void Perceptron::init()
 
 void Perceptron::start()
 {
+	double error = 0;
 	for (int _ = 0; _ < this->quantity; _++)
 	{
-		double error = 0;
 		for (int i = 0; i < this->data.shape[0]; i++)
 		{
 			auto input = Array<double>{ this->data[i], this->data.shape[1] };
@@ -65,8 +57,7 @@ void Perceptron::start()
 
 			if (i % 100 == 0)
 			{
-				std::cout << _ << '.' << i / 100 << ": " << error / 100 << '\n';
-				std::cout << "Output: " << output << '\n';
+				std::cout << _ << '.' << i / 100 << ": " << error / 100 << '\n' << std::flush;
 				error = 0;
 			}
 		}
