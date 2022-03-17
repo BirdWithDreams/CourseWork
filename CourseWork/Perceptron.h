@@ -15,8 +15,8 @@ public:
 	/*Perceptron(std::string& name, double learning_speed, long long quantity);
 	Perceptron(const char* name, double learning_speed, long long quantity);*/
 
-	Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels);
-	Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels);
+	Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch = 100);
+	Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch = 100);
 
 	void addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der));
 	void init();
@@ -27,6 +27,7 @@ private:
 	std::string name;
 	double a;
 	long long quantity;
+	int batch;
 
 	int first_layer_size;
 

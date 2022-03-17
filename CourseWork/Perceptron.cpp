@@ -1,17 +1,32 @@
 #include "Perceptron.h"
 
 Perceptron::Perceptron() :
-	name(""), quantity(0), a(1), data(Array<double>{}), labels(Array<double>{}), first_layer_size(0)
+	name(""),
+	quantity(0),
+	a(1),
+	data(Array<double>{}),
+	labels(Array<double>{}),
+	batch(batch)
 {
 }
 
-Perceptron::Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels)
-	: name(name), a(learning_speed), quantity(quantity), data(data), labels(labels), first_layer_size(0)
+Perceptron::Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch) :
+	name(name),
+	a(learning_speed),
+	quantity(quantity),
+	data(data),
+	labels(labels),
+	batch(batch)
 {
 }
 
-Perceptron::Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels)
-	: name(name), a(learning_speed), quantity(quantity), data(data), labels(labels), first_layer_size(0)
+Perceptron::Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch) :
+	name(name),
+	a(learning_speed),
+	quantity(quantity),
+	data(data),
+	labels(labels),
+	batch(batch)
 {
 }
 
@@ -30,8 +45,7 @@ void Perceptron::init()
 	{
 		auto layer = &layers.begin();
 		int n, m;
-		data.get_shape(n, this->first_layer_size);
-		m = this->first_layer_size;
+		data.get_shape(n, m);
 		do
 		{
 			layer->el.set_weights(m);
