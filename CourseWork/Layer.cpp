@@ -7,7 +7,7 @@ Layer::Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double
 {
 	this->neurons = Array<double>(size);
 	this->derivative = Array<double>(size);
-	this->displacement_vector = rand_uniform(-0.1, 0.1, this->size);
+	this->displacement_vector = rand_uniform(-0.01, 0.01, this->size);
 }
 
 Layer::Layer(const Layer& other) :
@@ -22,7 +22,7 @@ Layer::Layer(const Layer& other) :
 
 void Layer::set_weights(int _size)
 {
-	weights = rand_uniform(-0.1, 0.1, _size, this->size);
+	weights = rand_uniform(-0.01, 0.01, _size, this->size);
 }
 
 int Layer::get_size()

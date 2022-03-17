@@ -24,7 +24,12 @@ private:
 	Array<double>(*func)(const Array<double>& x, Array<double>& der);
 
 public:
-	Layer(int size, Array<double>(*func)(const Array<double>& x, Array<double>& der), double learn_speed);
+	Layer(
+		int size, 
+		Array<double>(*func)(const Array<double>& x, 
+		Array<double>& der), double learn_speed
+	);
+
 	Layer(const Layer& other);
 
 	void set_weights(int _size);
