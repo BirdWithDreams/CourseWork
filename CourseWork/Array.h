@@ -15,7 +15,7 @@ class Array
 	friend std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array);
 
 	template<class _Ty>
-	friend std::ofstream& operator<<(std::ofstream& ofs, const Array<_Ty>& array);
+	friend std::ofstream& operator<<(std::ofstream& ofs, Array<_Ty>& array);
 
 	template<class _Ty>
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);

@@ -548,14 +548,11 @@ std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
 ;
 
 template<class _Ty>
-std::ofstream& operator<<(std::ofstream& ofs, const Array<_Ty>& array)
+std::ofstream& operator<<(std::ofstream& ofs, Array<_Ty>& array)
 {
+	ofs.write(reinterpret_cast<char*>(array.shape), sizeof(int) * 2);
 	for (int i = 0; i < array.shape[0]; i++)
-	{
-		for (int j = 0; j < array.shape[1]; j++)
-			ofs << std::setprecision(16) << array[i][j] << ' ';
-		ofs << '\n';
-	}
+		ofs.write(reinterpret_cast<char*>(array[i]), sizeof(_Ty) * array.shape[1]);
 
 	return ofs;
 }
