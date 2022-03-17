@@ -5,6 +5,9 @@
 #include <iomanip>
 #include <fstream>
 
+static std::random_device rd;
+static std::mt19937 gen(rd());
+
 template <class _Ty>
 class Array
 {
