@@ -10,18 +10,27 @@ class LinkedList
 	template<class _El>
 	friend std::ostream& operator<<(std::ostream& os, const LinkedList<_El>& list);
 
+	using element         = _El;
+	using pointer         = typename _El*;
+	using reference       = _El&;
+	using const_reference = const reference;
+
+	using node           = Node<_El>;
+	using node_pointer   = Node<_El>*;
+	using node_reference = Node<_El>&;
+
 private:
 	int cur_size = 0;
-	Node<_El>
-		* head = nullptr,
-		* tail = nullptr;
+	node_pointer
+		head = nullptr,
+		tail = nullptr;
 
 public:
-	bool push_back(_El& el);
-	_El& pop_back();
+	bool push_back(const_reference el);
+	reference pop_back();
 
-	Node<_El>& begin();
-	Node<_El>& end();
+	node_reference begin();
+	node_reference end();
 
 	int size();
 };

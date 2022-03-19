@@ -20,89 +20,99 @@ class Array
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);
 
 public:
+	using value_type = _Ty;
+	using pointer    = _Ty*;
+	using ppointer   = _Ty**;
+
+	using self                 = Array<_Ty>;
+	using self_pointer         = typename self*;
+	using self_reference       = self&;
+	using const_self_reference = const self&;
+
+public:
 	int shape[2];
 
 private:
-	_Ty** array;
+	ppointer array;
 
-	Array<_Ty>* _T = nullptr;
+	self_pointer _T = nullptr;
 
 public:
 	Array();
-	Array(_Ty* begin, _Ty* end);
-	Array(_Ty* arr, int n);
-	Array(_Ty** arr, int n, int m);
+	Array(pointer begin, pointer end);
+	Array(pointer arr, int n);
+	Array(ppointer arr, int n, int m);
 	Array(int n);
 	Array(int n, int m);
 
-	Array<_Ty>(std::fstream& fio);
+	Array(std::fstream& fio);
 
-	Array(const Array<_Ty>& other);
-	Array<_Ty>& operator=(const Array<_Ty>& other);
+	Array(const_self_reference other);
+	self_reference operator=(const_self_reference other);
 
-	Array(Array<_Ty>&& other) noexcept;
-	Array<_Ty>& operator=(Array<_Ty>&& other) noexcept;
+	Array(self&& other) noexcept;
+	self_reference operator=(self&& other) noexcept;
 
 	~Array();
 
-	_Ty* operator[](int i) const;
+	pointer operator[](int i) const;
 
 
-	Array<_Ty> operator+(const Array<_Ty>& _arr) const;
+	self operator+(const_self_reference _arr) const;
 
 	template<class U>
-	Array<_Ty> operator+(U num) const;
+	self operator+(U num) const;
 
 	template<class _Ty, class U>
 	friend Array<_Ty> operator+(U num, const Array<_Ty>& _arr);
 
 
-	Array<_Ty>& operator+=(const Array<_Ty>& _arr);
+	self_reference operator+=(const_self_reference _arr);
 
 	template<class U>
-	Array<_Ty>& operator+=(U num);
+	self_reference operator+=(U num);
 
 
-	Array<_Ty> operator-() const;
-	Array<_Ty> operator-(const Array<_Ty>& _arr) const;
+	self operator-() const;
+	self operator-(const_self_reference _arr) const;
 
 	template<class U>
-	Array<_Ty> operator-(U num) const;
+	self operator-(U num) const;
 
 	template<class _Ty, class U>
 	friend Array<_Ty> operator-(U num, const Array<_Ty>& _arr);
 
 
-	Array<_Ty>& operator-=(const Array<_Ty>& _arr);
+	self_reference operator-=(const_self_reference _arr);
 
 	template<class U>
-	Array<_Ty>& operator-=(U num);
+	self_reference operator-=(U num);
 
 
-	Array<_Ty> operator*(const Array<_Ty>& _arr) const;
+	self operator*(const_self_reference _arr) const;
 
 	template<class U>
-	Array<_Ty> operator*(U num) const;
+	self operator*(U num) const;
 
 	template<class _Ty, class U>
 	friend Array<_Ty> operator*(U num, const Array<_Ty>& _arr);
 
-	Array<_Ty> operator/(const Array<_Ty>& _arr) const;
+	self operator/(const_self_reference _arr) const;
 
 	template<class U>
-	Array<_Ty> operator/(U num) const;
+	self operator/(U num) const;
 
 	template<class _Ty, class U>
 	friend Array<_Ty> operator/(U num, const Array<_Ty>& _arr);
 
 
 	template<class U>
-	Array<_Ty> operator^(U num) const;
+	self operator^(U num) const;
 
 
-	Array<_Ty> dot(const Array<_Ty>& _arr) const;
+	self dot(const_self_reference _arr) const;
 
-	Array<_Ty>& T();
+	self_reference T();
 
 	void save(std::fstream& fio);
 

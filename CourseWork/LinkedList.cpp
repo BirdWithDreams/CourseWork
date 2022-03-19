@@ -1,17 +1,17 @@
 #include "LinkedList.h"
 
 template<class _El>
-bool LinkedList<_El>::push_back(_El& el)
+bool LinkedList<_El>::push_back(const_reference el)
 {
-    auto node = new Node<_El>(el);
+    auto node_ = new node(el);
     if (cur_size == 0)
-        head = tail = node;
+        head = tail = node_;
 
     else
     {
-        node->prev = tail;
-        tail->next = node;
-        tail = node;
+        node_->prev = tail;
+        tail->next = node_;
+        tail = node_;
     }
     cur_size++;
     return true;

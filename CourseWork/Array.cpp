@@ -8,11 +8,11 @@ Array<_Ty>::Array() : array(nullptr)
 ;
 
 template<class _Ty>
-Array<_Ty>::Array(_Ty* begin, _Ty* end)
+Array<_Ty>::Array(pointer begin, pointer end)
 {
 	int n = end - begin;
-	this->array = new _Ty * [1];
-	this->array[0] = new _Ty[n];
+	this->array = new pointer [1];
+	this->array[0] = new value_type[n];
 
 	for (int i = 0; i < n; i++)
 		this->array[0][i] = begin[i];
@@ -23,10 +23,10 @@ Array<_Ty>::Array(_Ty* begin, _Ty* end)
 ;
 
 template<class _Ty>
-Array<_Ty>::Array(_Ty* arr, int n)
+Array<_Ty>::Array(pointer arr, int n)
 {
-	this->array = new _Ty * [1];
-	this->array[0] = new _Ty[n];
+	this->array = new pointer [1];
+	this->array[0] = new value_type[n];
 
 	for (int i = 0; i < n; i++)
 		this->array[0][i] = arr[i];
@@ -37,12 +37,12 @@ Array<_Ty>::Array(_Ty* arr, int n)
 ;
 
 template<class _Ty>
-Array<_Ty>::Array(_Ty** arr, int n, int m)
+Array<_Ty>::Array(ppointer arr, int n, int m)
 {
-	this->array = new _Ty * [n];
+	this->array = new pointer [n];
 	for (int i = 0; i < n; i++)
 	{
-		this->array[i] = new _Ty[m];
+		this->array[i] = new value_type[m];
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = arr[i][j];
 	}
@@ -55,8 +55,8 @@ Array<_Ty>::Array(_Ty** arr, int n, int m)
 template<class _Ty>
 Array<_Ty>::Array(int n)
 {
-	array = new _Ty * [1];
-	array[0] = new _Ty[n];
+	array = new pointer [1];
+	array[0] = new value_type[n];
 
 	shape[0] = 1;
 	shape[1] = n;
@@ -66,9 +66,9 @@ Array<_Ty>::Array(int n)
 template<class _Ty>
 Array<_Ty>::Array(int n, int m)
 {
-	this->array = new _Ty * [n];
+	this->array = new pointer [n];
 	for (int i = 0; i < n; i++)
-		array[i] = new _Ty[m];
+		array[i] = new value_type[m];
 
 	shape[0] = n;
 	shape[1] = m;
@@ -76,16 +76,16 @@ Array<_Ty>::Array(int n, int m)
 ;
 
 template<class _Ty>
-Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
+Array<_Ty>::Array(const_self_reference other) : array{ nullptr }
 {
 	int 
 		n = other.shape[0], 
 		m = other.shape[1];
 
-	this->array = new _Ty * [n];
+	this->array = new pointer [n];
 	for (int i = 0; i < n; i++)
 	{
-		this->array[i] = new _Ty[m];
+		this->array[i] = new value_type[m];
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = other[i][j];
 	}
@@ -96,7 +96,7 @@ Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
 ;
 
 template<class _Ty>
-Array<_Ty>::Array(Array<_Ty>&& other) noexcept
+Array<_Ty>::Array(self&& other) noexcept
 {
 	this->shape[0] = other.shape[0];
 	this->shape[1] = other.shape[1];
@@ -111,7 +111,7 @@ Array<_Ty>::Array(Array<_Ty>&& other) noexcept
 ;
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator=(Array<_Ty>&& other) noexcept
+Array<_Ty>& Array<_Ty>::operator=(self&& other) noexcept
 {
 	if (this == &other) return *this;
 	if (this->array)
@@ -156,14 +156,14 @@ _Ty* Array<_Ty>::operator[](int i) const
 ;
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator+(const_self_reference _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
 
-		Array<_Ty> res(n, m);
+		self res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				res[i][j] = this->array[i][j] + _arr[i][j];
@@ -180,12 +180,12 @@ Array<_Ty>::Array(std::fstream& fio)
 {
 	fio.read(reinterpret_cast<char*>(this->shape), sizeof(int) * 2);
 
-	this->array = new _Ty * [this->shape[0]];
+	this->array = new pointer [this->shape[0]];
 	for (int i = 0; i < this->shape[0]; i++)
-		this->array[i] = new _Ty[this->shape[1]];
+		this->array[i] = new value_type[this->shape[1]];
 
 	for (int i = 0; i < this->shape[0]; i++)
-		fio.read(reinterpret_cast<char*>((*this)[i]), sizeof(_Ty) * this->shape[1]);
+		fio.read(reinterpret_cast<char*>((*this)[i]), sizeof(value_type) * this->shape[1]);
 }
 
 template<class _Ty>
@@ -195,10 +195,10 @@ Array<_Ty> Array<_Ty>::operator+(U num) const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = this->array[i][j] + static_cast<_Ty>(num);
+			res[i][j] = this->array[i][j] + static_cast<value_type>(num);
 
 	return res;
 }
@@ -228,7 +228,7 @@ Array<_Ty>& Array<_Ty>::operator-=(U num)
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			this->array[i][j] -= static_cast<_Ty>(num);
+			this->array[i][j] -= static_cast<value_type>(num);
 	return *this;
 }
 ;
@@ -240,24 +240,24 @@ Array<_Ty> Array<_Ty>::operator*(U num) const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = this->array[i][j] * static_cast<_Ty>(num);
+			res[i][j] = this->array[i][j] * static_cast<value_type>(num);
 
 	return res;
 }
 ;
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator*(const_self_reference _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
 
-		Array<_Ty> res(n, m);
+		self res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				res[i][j] = this->array[i][j] * _arr[i][j];
@@ -270,14 +270,14 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 ;
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator/(const_self_reference _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
 
-		Array<_Ty> res(n, m);
+		self res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				res[i][j] = this->array[i][j] / _arr[i][j];
@@ -296,10 +296,10 @@ Array<_Ty> Array<_Ty>::operator/(U num) const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = this->array[i][j] / static_cast<_Ty>(num);
+			res[i][j] = this->array[i][j] / static_cast<value_type>(num);
 
 	return res;
 }
@@ -312,17 +312,17 @@ Array<_Ty> Array<_Ty>::operator^(U num) const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = pow(this->array[i][j], static_cast<_Ty>(num));
+			res[i][j] = pow(this->array[i][j], static_cast<value_type>(num));
 
 	return res;
 }
 ;
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
+Array<_Ty>& Array<_Ty>::operator+=(const_self_reference _arr)
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -345,7 +345,7 @@ Array<_Ty> Array<_Ty>::operator-() const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			res[i][j] = -this->array[i][j];
@@ -363,7 +363,7 @@ Array<_Ty>& Array<_Ty>::operator+=(U num)
 
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			this->array[i][j] += static_cast<_Ty>(num);
+			this->array[i][j] += static_cast<value_type>(num);
 	return *this;
 }
 ;
@@ -375,24 +375,24 @@ Array<_Ty> Array<_Ty>::operator-(U num) const
 	int n = this->shape[0];
 	int m = this->shape[1];
 
-	Array<_Ty> res(n, m);
+	self res(n, m);
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
-			res[i][j] = this->array[i][j] - static_cast<_Ty>(num);
+			res[i][j] = this->array[i][j] - static_cast<value_type>(num);
 
 	return res;
 }
 ;
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::operator-(const_self_reference _arr) const
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
 		int n = this->shape[0];
 		int m = this->shape[1];
 
-		Array<_Ty> res(n, m);
+		self res(n, m);
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < m; j++)
 				res[i][j] = this->array[i][j] - _arr[i][j];
@@ -405,7 +405,7 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 ;
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
+Array<_Ty>& Array<_Ty>::operator-=(const_self_reference _arr)
 {
 	if (this->shape[0] == _arr.shape[0] && this->shape[1] == _arr.shape[1])
 	{
@@ -423,7 +423,7 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 ;
 
 template<class _Ty>
-Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
+Array<_Ty>& Array<_Ty>::operator=(const_self_reference other)
 {
 	if (this == &other) return *this;
 
@@ -446,10 +446,10 @@ Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 		delete[] this->array;
 	}
 
-	this->array = new _Ty * [n];
+	this->array = new pointer [n];
 	for (int i = 0; i < n; i++)
 	{
-		this->array[i] = new _Ty[m];
+		this->array[i] = new value_type[m];
 		for (int j = 0; j < m; j++)
 			this->array[i][j] = other[i][j];
 	}
@@ -461,7 +461,7 @@ Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 ;
 
 template<class _Ty>
-Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
+Array<_Ty> Array<_Ty>::dot(const_self_reference _arr) const
 {
 	int n1 = this->shape[0],
 		m1 = this->shape[1],
@@ -470,7 +470,7 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 
 	if (m1 == n2)
 	{
-		Array<_Ty> res(n1, m2);
+		self res(n1, m2);
 		for (int i = 0; i < n1; i++)
 			for (int j = 0; j < m2; j++)
 			{
@@ -495,7 +495,7 @@ Array<_Ty>& Array<_Ty>::T()
 
 	if (!this->_T)
 	{
-		this->_T = new Array<_Ty>(m, n);
+		this->_T = new self(m, n);
 
 		this->_T->_T = this;
 	}
@@ -537,7 +537,7 @@ void Array<_Ty>::randint(_Ty min, _Ty max)
 template<class _Ty>
 _Ty Array<_Ty>::sum() const
 {
-	_Ty s = 0;
+	value_type s = 0;
 	int n = this->shape[0];
 	int m = this->shape[1];
 
@@ -551,7 +551,7 @@ _Ty Array<_Ty>::sum() const
 template<class _Ty>
 int Array<_Ty>::argmax()
 {
-	_Ty max = this->array[0][0];
+	value_type max = this->array[0][0];
 	int index = 0;
 
 	int n = this->shape[0];
