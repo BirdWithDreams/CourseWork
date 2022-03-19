@@ -25,8 +25,7 @@ private:
 public:
 	Perceptron();
 
-	Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch = 100);
-	Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch = 100);
+	Perceptron(std::string name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch = 100);
 
 	Perceptron(std::string& file_name);
 

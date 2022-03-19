@@ -26,8 +26,8 @@ private:
 public:
 	Layer(
 		int size, 
-		Array<double>(*func)(const Array<double>& x, 
-		Array<double>& der), double learn_speed
+		Array<double>(*func)(const Array<double>& x, Array<double>& der), 
+		double learn_speed
 	);
 
 	Layer(const Layer& other);
@@ -36,8 +36,9 @@ public:
 
 	void set_weights(int _size);
 	int get_size();
-	void save(std::string& name);
-	void save(std::string&& name);
+
+	void save(std::string name);
+
 	void save(std::fstream& out);
 
 	Array<double> activation(const Array<double>& input);

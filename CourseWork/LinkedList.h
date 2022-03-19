@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Node.h"
 #include "Node.cpp"
-//#include "exceptions.h"
+#include "exceptions.h"
 
 template<class _El>
 class LinkedList
@@ -23,9 +23,5 @@ public:
 	Node<_El>& begin();
 	Node<_El>& end();
 
-	/*bool push_front(_El& el);
-	_El& pop_front();*/
-
-	//_El get(int index);
 	int size();
 };

@@ -148,6 +148,9 @@ Array<_Ty>::~Array()
 template<class _Ty>
 _Ty* Array<_Ty>::operator[](int i) const
 {
+	if (i >= this->shape[0])
+		throw IndexError();
+
 	return array[i];
 }
 ;
@@ -168,7 +171,7 @@ Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 		return res;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -262,7 +265,7 @@ Array<_Ty> Array<_Ty>::operator*(const Array<_Ty>& _arr) const
 		return res;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -282,7 +285,7 @@ Array<_Ty> Array<_Ty>::operator/(const Array<_Ty>& _arr) const
 		return res;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -332,7 +335,7 @@ Array<_Ty>& Array<_Ty>::operator+=(const Array<_Ty>& _arr)
 		return *this;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -397,7 +400,7 @@ Array<_Ty> Array<_Ty>::operator-(const Array<_Ty>& _arr) const
 		return res;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -415,7 +418,7 @@ Array<_Ty>& Array<_Ty>::operator-=(const Array<_Ty>& _arr)
 		return *this;
 	}
 	else
-		throw 1;
+		throw ShapeError(this->shape[0], this->shape[1], _arr.shape[0], _arr.shape[1]);
 }
 ;
 
@@ -480,7 +483,7 @@ Array<_Ty> Array<_Ty>::dot(const Array<_Ty>& _arr) const
 		return res;
 	}
 	else
-		throw 1;
+		throw MatMulError(m1, n2);
 }
 ;
 

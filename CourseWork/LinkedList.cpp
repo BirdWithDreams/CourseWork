@@ -21,7 +21,7 @@ template<class _El>
 _El& LinkedList<_El>::pop_back()
 {
     if (!head)
-        throw 1;
+        throw ValueError("the list is empty");
 
     auto el = tail->el;
 
@@ -44,53 +44,20 @@ _El& LinkedList<_El>::pop_back()
 template<class _El>
 Node<_El>& LinkedList<_El>::begin()
 {
+    if (!head)
+        throw ValueError("the list is empty");
+
     return *head;
 }
 
 template<class _El>
 Node<_El>& LinkedList<_El>::end()
 {
+    if (!tail)
+        throw ValueError("the list is empty");
+
     return *tail;
 }
-
-
-//bool LinkedList::push_front(Dekanat el)
-//{
-//    auto node = new Node;
-//    node->el = el;
-//
-//    if (!head)
-//        head = tail = node;
-//
-//    else
-//    {
-//        node->next = head;
-//        head = node;
-//    }
-//    return true;
-//}
-
-//Dekanat LinkedList::pop_front()
-//{
-//    if (!head)
-//        throw EmptyListException();
-//
-//    auto el = head->el;
-//    if (!head->next)
-//        head = tail = nullptr;
-//    else
-//        head = head->next;
-//    return el;
-//}
-//
-//Dekanat LinkedList::get(int index)
-//{
-//    auto node = head;
-//    int count = 0;
-//    for (; count != index; node = node->next, count++);
-//
-//    return node->el;
-//}
 
 template<class _El>
 int LinkedList<_El>::size()

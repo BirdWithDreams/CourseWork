@@ -10,7 +10,7 @@ Perceptron::Perceptron() :
 {
 }
 
-Perceptron::Perceptron(std::string& name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch) :
+Perceptron::Perceptron(std::string name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch) :
 	name(name),
 	a(learning_speed),
 	quantity(quantity),
@@ -18,16 +18,11 @@ Perceptron::Perceptron(std::string& name, double learning_speed, long long quant
 	labels(labels),
 	batch(batch)
 {
-}
+	if (data.shape[0] == 0)
+		throw ValueError("data array can not be empty");
 
-Perceptron::Perceptron(const char* name, double learning_speed, long long quantity, const Array<double>& data, const Array<double>& labels, int batch) :
-	name(name),
-	a(learning_speed),
-	quantity(quantity),
-	data(data),
-	labels(labels),
-	batch(batch)
-{
+	if (labels.shape[0] == 0)
+		throw ValueError("labels array can not be empty");
 }
 
 Perceptron::Perceptron(std::string& file_name) :
@@ -39,6 +34,10 @@ Perceptron::Perceptron(std::string& file_name) :
 {
 	int layers_number;
 	std::fstream in(file_name, std::ios::in | std::ios::binary);
+
+	if (!in.is_open())
+		throw FileError(file_name);
+
 	in >> this->name;
 	in >> layers_number;
 
@@ -60,6 +59,9 @@ Array<double> Perceptron::operator()(const Array<double>& input)
 
 void Perceptron::addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der))
 {
+	if (size <= 0)
+		throw ValueError("layer size must be positive");
+
 	auto layer = new Layer{ size, activation_function, this->a };
 	if (this->layers.size())
 		this->layers.end().el.next = layer;
@@ -72,7 +74,7 @@ void Perceptron::init()
 	if (this->layers.size())
 	{
 		auto layer = &layers.begin();
-		int 
+		int
 			n = data.shape[0],
 			m = data.shape[1];
 		do
@@ -81,6 +83,8 @@ void Perceptron::init()
 			m = layer->el.get_size();
 		} while (layer = layer->next);
 	}
+	else
+		throw AttributeError("you have to add at least one layer");
 }
 
 void Perceptron::start()
