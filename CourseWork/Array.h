@@ -108,6 +108,7 @@ public:
 	void randint(_Ty min, _Ty max);
 
 	_Ty sum() const;
+	int argmax();
 };
 
 template<class _Ty>

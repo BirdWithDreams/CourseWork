@@ -532,6 +532,26 @@ _Ty Array<_Ty>::sum() const
 
 	return s;
 }
+
+template<class _Ty>
+int Array<_Ty>::argmax()
+{
+	_Ty max = this->array[0][0];
+	int index = 0;
+
+	int n = this->shape[0];
+	int m = this->shape[1];
+
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			if (this->array[i][j] > max)
+			{
+				max = this->array[i][j];
+				index = i * n + j;
+			}
+
+	return index;
+}
 ;
 
 template<class _Ty>
@@ -541,7 +561,7 @@ std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
 	{
 		for (int j = 0; j < array.shape[1]; j++)
 			os << std::setiosflags(std::ios::left)
-			<< std::setw(10) << array[i][j];
+			<< std::setw(12) << array[i][j];
 		os << '\n';
 	}
 	os << std::flush;
