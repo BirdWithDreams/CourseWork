@@ -6,7 +6,7 @@ Perceptron::Perceptron() :
 	a(1),
 	data(Array<double>{}),
 	labels(Array<double>{}),
-	batch(batch)
+	batch(0)
 {
 }
 
@@ -77,6 +77,17 @@ void Perceptron::start()
 			}
 		}
 	}
+}
+
+void Perceptron::save()
+{
+	std::fstream out(this->name + ".txt", std::ios::out | std::ios::binary);
+	out << this->name + '\n';
+	out << this->layers.size() << '\n';
+
+	for (auto layer = &this->layers.begin(); layer != nullptr; layer = layer->next)
+		layer->el.save(out);
+	out.close();
 }
 
 std::ostream& operator<<(std::ostream& os, const Perceptron& perc)

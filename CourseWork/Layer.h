@@ -36,6 +36,7 @@ public:
 	int get_size();
 	void save(std::string& name);
 	void save(std::string&& name);
+	void save(std::fstream& out);
 
 	Array<double> activation(const Array<double>& input);
 	Array<double> back_propagation(const Array<double>& delta);

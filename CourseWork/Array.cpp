@@ -489,13 +489,12 @@ Array<_Ty>& Array<_Ty>::T()
 
 	return *_T;
 }
-;
-
 template<class _Ty>
-void Array<_Ty>::get_shape(int& n, int& m) const
+void Array<_Ty>::save(std::fstream& fio)
 {
-	n = this->shape[0];
-	m = this->shape[1];
+	fio.write(reinterpret_cast<char*>(this->shape), sizeof(int) * 2);
+	for (int i = 0; i < this->shape[0]; i++)
+		fio.write(reinterpret_cast<char*>((*this)[i]), sizeof(_Ty) * this->shape[1]);
 }
 ;
 
@@ -566,17 +565,6 @@ std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array)
 	}
 	os << std::flush;
 	return os;
-}
-;
-
-template<class _Ty>
-std::ofstream& operator<<(std::ofstream& ofs, Array<_Ty>& array)
-{
-	ofs.write(reinterpret_cast<char*>(array.shape), sizeof(int) * 2);
-	for (int i = 0; i < array.shape[0]; i++)
-		ofs.write(reinterpret_cast<char*>(array[i]), sizeof(_Ty) * array.shape[1]);
-
-	return ofs;
 }
 ;
 

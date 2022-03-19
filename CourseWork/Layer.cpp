@@ -15,7 +15,8 @@ Layer::Layer(const Layer& other) :
 	neurons(other.neurons),
 	derivative(other.derivative),
 	weights(other.weights),
-	displacement_vector(other.displacement_vector)
+	displacement_vector(other.displacement_vector),
+	a(other.a)
 {
 	this->func = other.func;
 }
@@ -59,6 +60,15 @@ void Layer::save(std::string&& name)
 	out.close();
 }
 
+void Layer::save(std::fstream& out)
+{
+	std::string func_name = ActFunc::get_name(this->func);
+	out << func_name << ' ';
+	this->weights.save(out);
+	this->displacement_vector.save(out);
+	out << '\n';
+}
+
 Array<double> Layer::activation(const Array<double>& input)
 {
 	this->input = input;
@@ -93,3 +103,4 @@ std::ostream& operator<<(std::ostream& os, const Layer& layer)
 	os << layer.weights;
 	return os;
 }
+

@@ -103,6 +103,7 @@ public:
 
 	Array<_Ty>& T();
 
+	void save(std::fstream& fio);
 
 	void rand_uniform(_Ty min, _Ty max);
 	void randint(_Ty min, _Ty max);
