@@ -15,9 +15,6 @@ class Array
 	friend std::ostream& operator<<(std::ostream& os, const Array<_Ty>& array);
 
 	template<class _Ty>
-	friend std::ofstream& operator<<(std::ofstream& ofs, Array<_Ty>& array);
-
-	template<class _Ty>
 	friend Array<_Ty> exponent(const Array<_Ty>& _arr);
 
 public:
@@ -35,6 +32,8 @@ public:
 	Array(_Ty** arr, int n, int m);
 	Array(int n);
 	Array(int n, int m);
+
+	Array<_Ty>(std::fstream& fio);
 
 	Array(const Array<_Ty>& other);
 	Array<_Ty>& operator=(const Array<_Ty>& other);

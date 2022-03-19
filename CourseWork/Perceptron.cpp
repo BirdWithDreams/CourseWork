@@ -30,6 +30,34 @@ Perceptron::Perceptron(const char* name, double learning_speed, long long quanti
 {
 }
 
+Perceptron::Perceptron(std::string& file_name) :
+	quantity(0),
+	a(1),
+	data(Array<double>{}),
+	labels(Array<double>{}),
+	batch(0)
+{
+	int layers_number;
+	std::fstream in(file_name, std::ios::in | std::ios::binary);
+	in >> this->name;
+	in >> layers_number;
+
+	for (int i = 0; i < layers_number; i++)
+	{
+		auto layer = new Layer(in);
+		if (this->layers.size())
+			this->layers.end().el.next = layer;
+
+		this->layers.push_back(*layer);
+	}
+}
+
+Array<double> Perceptron::operator()(const Array<double>& input)
+{
+	auto output = this->layers.begin().el.activation(input);
+	return output;
+}
+
 void Perceptron::addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der))
 {
 	auto layer = new Layer{ size, activation_function, this->a };
@@ -66,13 +94,12 @@ void Perceptron::start()
 			auto output = layers.begin().el.activation(input);
 
 			auto delta = output - Array<double>{ this->labels[i], this->labels.shape[1] };
-			error += sqrt(sum(delta ^ 2) / delta.shape[1]);
-
 			this->layers.begin().el.back_propagation(delta);
 
-			if (i % 100 == 0)
+			error += sqrt(sum(delta ^ 2) / delta.shape[1]);
+			if (i % this->batch == 0)
 			{
-				std::cout << _ << '.' << i / 100 << ": " << error / 100 << '\n' << std::flush;
+				std::cout << _ << '.' << i / this->batch << ": " << error / this->batch << '\n' << std::flush;
 				error = 0;
 			}
 		}

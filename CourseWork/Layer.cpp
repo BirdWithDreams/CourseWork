@@ -21,6 +21,23 @@ Layer::Layer(const Layer& other) :
 	this->func = other.func;
 }
 
+Layer::Layer(std::fstream& fio)
+{
+	std::string func_name;
+	fio >> func_name;
+	this->func = ActFunc::get_function<double>(func_name);
+
+	fio.seekg(std::ios::cur, 1);
+	this->weights = Array<double>(fio);
+	this->displacement_vector = Array<double>(fio);
+
+	this->size = this->weights.shape[1];
+	this->neurons = Array<double>(this->size);
+	this->derivative = Array<double>(this->size);
+
+	fio.seekg(std::ios::cur, 1);
+}
+
 void Layer::set_weights(int _size)
 {
 	weights = rand_uniform(-0.01, 0.01, _size, this->size);
@@ -33,7 +50,7 @@ int Layer::get_size()
 
 void Layer::save(std::string& name)
 {
-	std::ofstream out{ name + ".txt"};
+	std::ofstream out{ name + ".txt" };
 	for (int i = 0; i < this->weights.shape[0]; i++)
 	{
 		for (int j = 0; j < weights.shape[1]; j++)

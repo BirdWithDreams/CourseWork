@@ -32,6 +32,8 @@ public:
 
 	Layer(const Layer& other);
 
+	Layer(std::fstream& fio);
+
 	void set_weights(int _size);
 	int get_size();
 	void save(std::string& name);

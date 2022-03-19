@@ -173,6 +173,19 @@ Array<_Ty> Array<_Ty>::operator+(const Array<_Ty>& _arr) const
 ;
 
 template<class _Ty>
+Array<_Ty>::Array(std::fstream& fio)
+{
+	fio.read(reinterpret_cast<char*>(this->shape), sizeof(int) * 2);
+
+	this->array = new _Ty * [this->shape[0]];
+	for (int i = 0; i < this->shape[0]; i++)
+		this->array[i] = new _Ty[this->shape[1]];
+
+	for (int i = 0; i < this->shape[0]; i++)
+		fio.read(reinterpret_cast<char*>((*this)[i]), sizeof(_Ty) * this->shape[1]);
+}
+
+template<class _Ty>
 template<class U>
 Array<_Ty> Array<_Ty>::operator+(U num) const
 {
