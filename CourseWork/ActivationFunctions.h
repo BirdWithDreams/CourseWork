@@ -27,4 +27,10 @@ namespace ActFunc
 
 	template<class T>
 	Array<T> softmax(const Array<T>& x, Array<T>& der);
+
+	template<class T>
+	std::string get_name(Array<T>(*func)(const Array<T>& x, Array<T>& der));
+
+	template<class T>
+	Array<T>(*get_function(std::string& name))(const Array<T>& x, Array<T>& der);
 }

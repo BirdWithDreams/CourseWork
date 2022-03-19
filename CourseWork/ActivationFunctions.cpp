@@ -100,4 +100,33 @@ namespace ActFunc
 
 		return res;
 	}
+
+	template<class T>
+	std::string get_name(Array<T>(*func)(const Array<T>& x, Array<T>& der))
+	{
+		static Array<double>(*_sigmoid)(const Array<double>&x, Array<double>&der) = ActFunc::sigmoid;
+		static Array<double>(*_tanh)(const Array<double>&x, Array<double>&der) = ActFunc::tanh;
+		static Array<double>(*_ReLU)(const Array<double>&x, Array<double>&der) = ActFunc::ReLU;
+		static Array<double>(*_softmax)(const Array<double>&x, Array<double>&der) = ActFunc::softmax;
+
+		if (func == _sigmoid)
+			return std::string("sigmoid");
+		if (func == _tanh)
+			return std::string("tanh");
+		if (func == _ReLU)
+			return std::string("ReLU");
+		if (func == _softmax)
+			return std::string("softmax");
+	}
+
+	template<class T>
+	Array<T>(*get_function(std::string& name))(const Array<T>& x, Array<T>& der)
+	{
+		if (name == "sigmoid") return sigmoid;
+		if (name == "tanh") return tanh;
+		if (name == "ReLU") return ReLU;
+		if (name == "softmax") return softmax;
+
+		return nullptr;
+	}
 }
