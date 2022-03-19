@@ -103,7 +103,6 @@ public:
 
 	Array<_Ty>& T();
 
-	void get_shape(int& n, int& m) const;
 
 	void rand_uniform(_Ty min, _Ty max);
 	void randint(_Ty min, _Ty max);

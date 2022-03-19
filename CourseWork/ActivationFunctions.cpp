@@ -48,8 +48,9 @@ namespace ActFunc
 	template<class T>
 	Array<T> ReLU(Array<T>& x)
 	{
-		int n, m;
-		x.get_shape(n, m);
+		int
+			n = x.shape[0],
+			m = x.shape[1];
 		auto res = zeros<double>(n, m);
 
 		for (int i = 0; i < n; i++)
@@ -62,8 +63,9 @@ namespace ActFunc
 	template<class T>
 	Array<T> ReLU(const Array<T>& x, Array<T>& der)
 	{
-		int n, m;
-		x.get_shape(n, m);
+		int 
+			n = x.shape[0],
+			m = x.shape[1];
 		auto res = zeros<double>(n, m);
 		auto _der = zeros<double>(n, m);
 

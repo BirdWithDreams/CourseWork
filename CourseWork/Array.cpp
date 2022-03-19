@@ -78,8 +78,9 @@ Array<_Ty>::Array(int n, int m)
 template<class _Ty>
 Array<_Ty>::Array(const Array<_Ty>& other) : array{ nullptr }
 {
-	int n, m;
-	other.get_shape(n, m);
+	int 
+		n = other.shape[0], 
+		m = other.shape[1];
 
 	this->array = new _Ty * [n];
 	for (int i = 0; i < n; i++)
@@ -410,8 +411,9 @@ Array<_Ty>& Array<_Ty>::operator=(const Array<_Ty>& other)
 {
 	if (this == &other) return *this;
 
-	int n, m;
-	other.get_shape(n, m);
+	int 
+		n = other.shape[0],
+		m = other.shape[1];
 
 	if (this->shape[0] == n && this->shape[1] == m)
 	{

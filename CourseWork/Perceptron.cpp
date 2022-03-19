@@ -44,8 +44,9 @@ void Perceptron::init()
 	if (this->layers.size())
 	{
 		auto layer = &layers.begin();
-		int n, m;
-		data.get_shape(n, m);
+		int 
+			n = data.shape[0],
+			m = data.shape[1];
 		do
 		{
 			layer->el.set_weights(m);
