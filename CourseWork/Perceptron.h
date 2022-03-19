@@ -30,6 +30,7 @@ public:
 
 	Perceptron(std::string& file_name);
 
+	Array<double> operator()(const Array<double>& input);
 
 	void addLayer(int size, Array<double>(*activation_function)(const Array<double>& x, Array<double>& der));
 	void init();
